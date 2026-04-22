@@ -1,0 +1,22 @@
+local opt = vim.opt
+
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.clipboard = "unnamed"
+opt.number = true
+opt.relativenumber = true
+opt.hlsearch = true
+opt.smartindent = true
+opt.laststatus = 2
+opt.wildmenu = true
+opt.ruler = true
+opt.history = 9999
+opt.encoding = "utf8"
+opt.termguicolors = true
+opt.signcolumn = "yes"
+opt.updatetime = 250
+opt.scrolloff = 8
+opt.wrap = false
+opt.splitright = true
+opt.splitbelow = true
