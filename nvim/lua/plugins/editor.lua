@@ -23,6 +23,7 @@ return {
       -- install parsers (skips already-installed)
       require("nvim-treesitter.install").install({
         "lua", "rust", "toml", "markdown", "bash", "json",
+        "c", "cpp", "zig",
       })
     end,
   },
@@ -57,6 +58,25 @@ return {
     opts = {},
   },
 
+  {
+    "mrjones2014/smart-splits.nvim",
+    event = "VeryLazy",
+    config = function()
+      local s = require("smart-splits")
+      -- resize
+      vim.keymap.set("n", "<leader>wk", s.resize_up,    { desc = "Resize up" })
+      vim.keymap.set("n", "<leader>wj", s.resize_down,  { desc = "Resize down" })
+      vim.keymap.set("n", "<leader>wh", s.resize_left,  { desc = "Resize left" })
+      vim.keymap.set("n", "<leader>wl", s.resize_right, { desc = "Resize right" })
+      vim.keymap.set("n", "<leader>w=", "<C-w>=",       { desc = "Equalize windows" })
+      -- window move
+      vim.keymap.set("n", "<C-Left>",  "<C-w>h", { desc = "Move to left window" })
+      vim.keymap.set("n", "<C-Down>",  "<C-w>j", { desc = "Move to lower window" })
+      vim.keymap.set("n", "<C-Up>",    "<C-w>k", { desc = "Move to upper window" })
+      vim.keymap.set("n", "<C-Right>", "<C-w>l", { desc = "Move to right window" })
+    end,
+  },
+
   -- Error Lens: inline diagnostics on same line
   {
     "rachartier/tiny-inline-diagnostic.nvim",
@@ -87,5 +107,26 @@ return {
       { "<leader>xQ", "<cmd>Trouble qflist toggle<CR>",                   desc = "Quickfix list" },
     },
     opts = { use_diagnostic_signs = true },
+  },
+
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
+
+  {
+    "iamcco/markdown-preview.nvim",
+    ft = { "markdown" },
+    build = "cd app && npm install",
+    cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
+    keys = {
+      { "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown preview" },
+    },
+    init = function()
+      vim.g.mkdp_auto_close = 1
+      vim.g.mkdp_theme = "dark"
+    end,
   },
 }

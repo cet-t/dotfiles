@@ -9,9 +9,13 @@ return {
     },
     opts = {
       formatters_by_ft = {
-        rust = { "rustfmt" },
-        lua = { "stylua" },
-        toml = { "taplo" },
+        rust     = { "rustfmt" },
+        lua      = { "stylua" },
+        toml     = { "taplo" },
+        markdown = { "prettier" },
+        c        = { "clang_format" },
+        cpp      = { "clang_format" },
+        zig      = { "zigfmt" },
       },
       format_on_save = {
         timeout_ms = 3000,
@@ -25,8 +29,8 @@ return {
     "akinsho/toggleterm.nvim",
     version = "*",
     keys = {
-      { "<C-\\>", desc = "Toggle float terminal" },
-      { "<leader>th", desc = "Toggle horizontal terminal" },
+      { "<C-\\>",    desc = "Toggle float terminal" },
+      { "<leader>j", desc = "Toggle horizontal terminal" },
     },
     config = function()
       require("toggleterm").setup({
@@ -34,6 +38,7 @@ return {
         shade_terminals = true,
         direction = "float",
         float_opts = { border = "curved" },
+        shell = "powershell",
       })
 
       local Terminal = require("toggleterm.terminal").Terminal
@@ -44,7 +49,7 @@ return {
 
       -- horizontal bottom pane
       local horiz_term = Terminal:new({ direction = "horizontal", size = 15, hidden = true })
-      vim.keymap.set({ "n", "t" }, "<leader>th", function() horiz_term:toggle() end, { desc = "Toggle horizontal terminal" })
+      vim.keymap.set({ "n", "t" }, "<leader>j", function() horiz_term:toggle() end, { desc = "Toggle horizontal terminal" })
     end,
   },
 

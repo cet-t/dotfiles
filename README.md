@@ -1,30 +1,47 @@
 # dotfiles
 
-Personal Neovim config. lazy.nvim + Rust dev environment.
+Neovim 設定。lazy.nvim + Rust / C++ / Zig 開発環境。
 
-## Stack
+## 構成
 
-- **Plugin manager**: lazy.nvim
-- **LSP / Rust**: rustaceanvim + rust-analyzer
-- **Completion**: nvim-cmp + LuaSnip
-- **Fuzzy finder**: Telescope
-- **File tree**: neo-tree
-- **Formatter**: conform.nvim (rustfmt, stylua)
-- **Diagnostics**: tiny-inline-diagnostic + Trouble
-- **Theme**: One Dark
+| カテゴリ | ツール |
+|---------|-------|
+| プラグイン管理 | lazy.nvim |
+| LSP / Rust | rustaceanvim + rust-analyzer |
+| LSP / C++ | nvim-lspconfig + clangd |
+| LSP / Zig | nvim-lspconfig + zls |
+| 補完 | nvim-cmp + LuaSnip + Copilot |
+| ファジーファインダー | Telescope |
+| ファイルツリー | neo-tree |
+| フォーマッタ | conform.nvim (rustfmt, clang-format, zigfmt, stylua, prettier) |
+| 診断 | tiny-inline-diagnostic + Trouble |
+| ターミナル | toggleterm.nvim |
+| テーマ | One Dark |
+| シェル (Linux) | zsh + zinit + Starship |
+| ターミナルエミュレータ | WezTerm |
 
-## Requirements
+## 必要なもの
 
-| Tool | Install |
-|------|---------|
-| Neovim >= 0.10 | [neovim.io](https://neovim.io) |
-| Git | |
-| Rust / rustup | [rustup.rs](https://rustup.rs) — includes `rustfmt`, `rust-analyzer` |
-| Node.js | optional, some LSPs need it |
+### Windows
 
-## Install
+| ツール | インストール |
+|-------|------------|
+| Neovim >= 0.11 | `scoop install neovim` |
+| Git | `scoop install git` |
+| Rust / rustup | [rustup.rs](https://rustup.rs) |
+| Node.js | `scoop install nodejs` |
+| LLVM (clangd) | `scoop install llvm` |
+| Zig | `scoop install zig` |
+| zls | `scoop install zls` |
+| WezTerm | `scoop install extras/wezterm` |
 
-### Windows (PowerShell as Administrator)
+### Linux
+
+install.sh が自動でインストールしてくれる（apt / dnf / pacman 対応）。
+
+## セットアップ
+
+### Windows（管理者権限の PowerShell で実行）
 
 ```powershell
 git clone https://github.com/cet-t/dotfiles $HOME\dotfiles
@@ -33,66 +50,72 @@ cd $HOME\dotfiles
 nvim
 ```
 
-### Linux / Mac
+### Linux
 
 ```bash
 git clone https://github.com/cet-t/dotfiles ~/dotfiles
 cd ~/dotfiles
 chmod +x install.sh
 ./install.sh
+# 新しいシェルセッションを開く
 nvim
 ```
 
-First launch installs all plugins automatically via lazy.nvim.
+初回起動時に lazy.nvim が全プラグインを自動インストールする。
 
-## Key Bindings
+## キーバインド
+
+詳細は [keymaps.md](./keymaps.md) を参照。
 
 `<leader>` = `Space`
 
-### Navigation
+### 移動・ナビゲーション
 
-| Key | Action |
-|-----|--------|
-| `<C-n>` | Toggle file tree |
-| `<leader>ff` | Find files |
-| `<leader>fg` | Live grep |
-| `<leader>fb` | Buffers |
-| `<S-h>` / `<S-l>` | Prev / Next buffer |
-| `<leader>bd` | Close buffer |
+| キー | 動作 |
+|-----|------|
+| `<C-n>` | ファイルツリー toggle |
+| `<leader>e` | ファイルツリーにフォーカス / エディタに戻る |
+| `<leader>ff` | ファイル検索 |
+| `<leader>fg` | 文字列検索（grep）|
+| `<leader>fb` | バッファ一覧 |
+| `<S-h>` / `<S-l>` | 前 / 次のバッファ |
+| `<leader>q` | バッファを閉じる（レイアウト維持）|
+| `<C-←↑↓→>` | ウィンドウ間移動 |
 
-### LSP / Rust
+### LSP
 
-| Key | Action |
-|-----|--------|
-| `gd` | Go to definition |
-| `gr` | References |
-| `K` | Hover docs |
-| `<leader>ca` | Code action |
-| `<leader>rn` | Rename |
-| `<leader>cf` | Format file |
-| `<leader>rr` | Rust runnables |
-| `<leader>rt` | Rust testables |
-| `<leader>re` | Expand macro |
+| キー | 動作 |
+|-----|------|
+| `gd` | 定義へジャンプ |
+| `gr` | 参照一覧 |
+| `K` | ホバードキュメント |
+| `<leader>ca` | コードアクション |
+| `<leader>rn` | リネーム |
+| `<leader>f` | フォーマット |
+| `[d` / `]d` | 前 / 次のエラー |
+| `<leader>d` | エラー詳細フロート |
+| `<leader>xx` | Trouble: 診断パネル |
 
-### Diagnostics
+### Rust
 
-| Key | Action |
-|-----|--------|
-| `[d` / `]d` | Prev / Next diagnostic |
-| `<leader>e` | Diagnostic float |
-| `<leader>xx` | Trouble: all diagnostics |
-| `<leader>xX` | Trouble: buffer diagnostics |
+| キー | 動作 |
+|-----|------|
+| `<leader>rr` | Runnables |
+| `<leader>rt` | Testables |
+| `<leader>re` | マクロ展開 |
+| `<leader>rc` | Cargo.toml を開く |
 
-### Terminal
+### ターミナル
 
-| Key | Action |
-|-----|--------|
-| `<C-\>` | Toggle floating terminal |
-| `<leader>th` | Toggle bottom terminal |
+| キー | 動作 |
+|-----|------|
+| `<C-\>` | フローティングターミナル toggle |
+| `<leader>j` | 下ペインターミナル toggle |
 
-### Claude Code
+### Copilot
 
-| Key | Action |
-|-----|--------|
-| `<leader>ac` | Open Claude Code |
-| `<leader>ar` | Resume last session |
+| キー | 動作 |
+|-----|------|
+| `Alt+l` | インライン補完を確定 |
+| `Alt+w` | 単語単位で確定 |
+| `Alt+]` / `Alt+[` | 次 / 前の候補 |
