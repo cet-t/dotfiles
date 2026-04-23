@@ -34,7 +34,13 @@ return {
       "MunifTanjim/nui.nvim",
     },
     opts = {
-      window = { width = 30 },
+      window = {
+        width = 30,
+        mappings = {
+          ["l"] = "open",
+          ["h"] = "close_node",
+        },
+      },
       filesystem = {
         filtered_items = { visible = false, hide_dotfiles = false },
         follow_current_file = { enabled = true },
