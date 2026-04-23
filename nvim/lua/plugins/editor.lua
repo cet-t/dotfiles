@@ -23,7 +23,7 @@ return {
       -- install parsers (skips already-installed)
       require("nvim-treesitter.install").install({
         "lua", "rust", "toml", "markdown", "bash", "json",
-        "c", "cpp", "zig",
+        "c", "cpp", "zig", "c_sharp",
       })
     end,
   },

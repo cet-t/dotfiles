@@ -21,22 +21,36 @@ return {
       local caps = require("cmp_nvim_lsp").default_capabilities()
 
       -- C / C++
-      vim.lsp.config("clangd", {
-        on_attach = on_attach,
-        capabilities = caps,
-        cmd = { "clangd", "--background-index", "--clang-tidy", "--header-insertion=iwyu" },
-        filetypes = { "c", "cpp", "objc", "objcpp" },
-        root_markers = { "compile_commands.json", "CMakeLists.txt", ".git" },
-      })
-      vim.lsp.enable("clangd")
+      if vim.fn.executable("clangd") == 1 then
+        vim.lsp.config("clangd", {
+          on_attach = on_attach,
+          capabilities = caps,
+          cmd = { "clangd", "--background-index", "--clang-tidy", "--header-insertion=iwyu" },
+          filetypes = { "c", "cpp", "objc", "objcpp" },
+          root_markers = { "compile_commands.json", "CMakeLists.txt", ".git" },
+        })
+        vim.lsp.enable("clangd")
+      end
+
+      -- C#
+      if vim.fn.executable("csharp-ls") == 1 then
+        vim.lsp.config("csharp_ls", {
+          on_attach = on_attach,
+          capabilities = caps,
+          root_markers = { "*.sln", "*.csproj", ".git" },
+        })
+        vim.lsp.enable("csharp_ls")
+      end
 
       -- Zig
-      vim.lsp.config("zls", {
-        on_attach = on_attach,
-        capabilities = caps,
-        root_markers = { "build.zig", ".git" },
-      })
-      vim.lsp.enable("zls")
+      if vim.fn.executable("zls") == 1 then
+        vim.lsp.config("zls", {
+          on_attach = on_attach,
+          capabilities = caps,
+          root_markers = { "build.zig", ".git" },
+        })
+        vim.lsp.enable("zls")
+      end
     end,
   },
 }

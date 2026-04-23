@@ -10,6 +10,7 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig 開発環境。
 | LSP / Rust | rustaceanvim + rust-analyzer |
 | LSP / C++ | nvim-lspconfig + clangd |
 | LSP / Zig | nvim-lspconfig + zls |
+| LSP / C# | nvim-lspconfig + csharp-ls |
 | 補完 | nvim-cmp + LuaSnip + Copilot |
 | ファジーファインダー | Telescope |
 | ファイルツリー | neo-tree |

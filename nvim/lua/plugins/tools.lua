@@ -16,6 +16,7 @@ return {
         c        = { "clang_format" },
         cpp      = { "clang_format" },
         zig      = { "zigfmt" },
+        cs       = { "csharpier" },
       },
       format_on_save = {
         timeout_ms = 3000,
