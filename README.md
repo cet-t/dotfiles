@@ -17,10 +17,11 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 | ファイルツリー         | neo-tree                                                             |
 | フォーマッタ           | conform.nvim (rustfmt, clang-format, zigfmt, stylua, prettier, ruff) |
 | 診断                   | tiny-inline-diagnostic + Trouble                                     |
+| スクロールバー         | satellite.nvim（git変更・診断・検索マーカー）                        |
 | ターミナル             | toggleterm.nvim                                                      |
 | テーマ                 | One Dark                                                             |
 | シェル (Linux)         | zsh + zinit + Starship                                               |
-| ターミナルエミュレータ | WezTerm                                                              |
+| ターミナルエミュレータ | Alacritty / WezTerm                                                  |
 
 ## 必要なもの
 
@@ -38,6 +39,8 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 | Python / pyright | `npm install -g pyright` または `pip install pyright` |
 | ruff             | `scoop install ruff` または `pip install ruff`        |
 | WezTerm          | `scoop install extras/wezterm`                        |
+| Alacritty        | `scoop install alacritty`                             |
+| taplo (TOML fmt) | `scoop install taplo`                                 |
 
 ### Linux
 
@@ -123,3 +126,11 @@ nvim
 | `Alt+l`           | インライン補完を確定 |
 | `Alt+w`           | 単語単位で確定       |
 | `Alt+]` / `Alt+[` | 次 / 前の候補        |
+
+### Claude Code
+
+| キー        | 動作                              |
+| ----------- | --------------------------------- |
+| `<leader>ac` | Claude Code 起動                 |
+| `<leader>ar` | 前のセッションを再開             |
+| `Alt+q`     | ウィンドウ表示 / 非表示トグル     |

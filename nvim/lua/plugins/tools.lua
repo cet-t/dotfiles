@@ -61,13 +61,15 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = { "ClaudeCode", "ClaudeCodeContinue", "ClaudeCodeDiff" },
     keys = {
-      { "<leader>ac", "<cmd>ClaudeCode<CR>", desc = "Claude Code" },
-      { "<leader>ar", "<cmd>ClaudeCodeContinue<CR>", desc = "Claude Code (resume)" },
+      { "<leader>ac", "<cmd>ClaudeCode<CR>",         desc = "Claude Code",          mode = { "n" } },
+      { "<leader>ar", "<cmd>ClaudeCodeContinue<CR>", desc = "Claude Code (resume)", mode = { "n" } },
+      { "<M-q>",      "<cmd>ClaudeCode<CR>",         desc = "Toggle Claude Code",   mode = { "n", "t" } },
     },
     opts = {
       window = {
-        position = "right",
-        width = 0.4,
+        position = "float",
+        width = 0.8,
+        height = 0.8,
       },
     },
   },

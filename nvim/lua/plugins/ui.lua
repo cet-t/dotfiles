@@ -69,6 +69,21 @@ return {
   },
 
   {
+    "lewis6991/satellite.nvim",
+    event = "BufReadPre",
+    opts = {
+      current_only = false,
+      winblend     = 50,
+      handlers = {
+        cursor    = { enable = true },
+        gitsigns  = { enable = true },
+        diagnostic = { enable = true, signs = { "-", "=", "≡" } },
+        search    = { enable = true },
+      },
+    },
+  },
+
+  {
     "folke/noice.nvim",
     event = "VeryLazy",
     dependencies = {
