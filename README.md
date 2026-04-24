@@ -19,9 +19,10 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 | 診断                   | tiny-inline-diagnostic + Trouble                                     |
 | スクロールバー         | satellite.nvim（git変更・診断・検索マーカー）                        |
 | ターミナル             | toggleterm.nvim                                                      |
+| ファイルアイコン       | nvim-material-icon                                                   |
 | テーマ                 | One Dark                                                             |
-| シェル (Linux)         | zsh + zinit + Starship                                               |
-| ターミナルエミュレータ | Alacritty / WezTerm                                                  |
+| シェル                 | PowerShell (Windows) / zsh + zinit (Linux) + Starship               |
+| ターミナルエミュレータ | Alacritty / WezTerm / Windows Terminal                               |
 
 ## 必要なもの
 
@@ -41,6 +42,7 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 | WezTerm          | `scoop install extras/wezterm`                        |
 | Alacritty        | `scoop install alacritty`                             |
 | taplo (TOML fmt) | `scoop install taplo`                                 |
+| stylua (Lua fmt) | `scoop install stylua`                                |
 
 ### Linux
 
