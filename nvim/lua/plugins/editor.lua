@@ -19,11 +19,13 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter").setup()
-      -- install parsers (skips already-installed)
-      require("nvim-treesitter.install").install({
-        "lua", "rust", "toml", "markdown", "bash", "json",
-        "c", "cpp", "zig", "c_sharp",
+      require("nvim-treesitter").setup({
+        highlight        = { enable = true },
+        indent           = { enable = true },
+        ensure_installed = {
+          "lua", "rust", "toml", "markdown", "markdown_inline",
+          "bash", "json", "c", "cpp", "zig", "c_sharp", "python",
+        },
       })
     end,
   },
@@ -113,13 +115,41 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown" },
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-    opts = {},
+    opts = {
+      heading = {
+        sign        = false,
+        icons       = { "󰉫 ", "󰉬 ", "󰉭 ", "󰉮 ", "󰉯 ", "󰉰 " },
+        backgrounds = {
+          "RenderMarkdownH1Bg", "RenderMarkdownH2Bg", "RenderMarkdownH3Bg",
+          "RenderMarkdownH4Bg", "RenderMarkdownH5Bg", "RenderMarkdownH6Bg",
+        },
+      },
+      code = {
+        sign        = false,
+        style       = "full",
+        border      = "thin",
+        above       = "▄",
+        below       = "▀",
+        language_pad = 1,
+      },
+      bullet = {
+        icons = { "●", "○", "◆", "◇" },
+      },
+      checkbox = {
+        unchecked = { icon = "󰄱 " },
+        checked   = { icon = "󰱒 " },
+      },
+      pipe_table = { style = "full" },
+      hr         = { icon = "─" },
+      quote      = { icon = "▎" },
+    },
   },
 
   {
     "iamcco/markdown-preview.nvim",
     ft = { "markdown" },
-    build = "cd app && npm install",
+    pin = true,
+    build = "cd app && npm install && git checkout -- yarn.lock",
     cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
     keys = {
       { "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown preview" },

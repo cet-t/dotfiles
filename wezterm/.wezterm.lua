@@ -27,6 +27,10 @@ config.scrollback_lines = 10000
 config.default_prog = { "powershell.exe", "-NoLogo" }
 
 config.keys = {
+  -- Ctrl+V を nvim に通す（矩形選択）、ペーストは Ctrl+Shift+V で
+  { key = "v", mods = "CTRL",       action = wezterm.action.SendKey({ key = "v", mods = "CTRL" }) },
+  { key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
+
   -- ペイン分割
   { key = "\\", mods = "CTRL|SHIFT", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "-",  mods = "CTRL|SHIFT", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },

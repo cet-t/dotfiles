@@ -51,6 +51,24 @@ return {
         })
         vim.lsp.enable("zls")
       end
+
+      -- Python
+      if vim.fn.executable("pyright") == 1 then
+        vim.lsp.config("pyright", {
+          on_attach = on_attach,
+          capabilities = caps,
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "basic",
+                autoImportCompletions = true,
+              },
+            },
+          },
+          root_markers = { "pyproject.toml", "setup.py", "setup.cfg", ".git" },
+        })
+        vim.lsp.enable("pyright")
+      end
     end,
   },
 }
