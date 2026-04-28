@@ -19,6 +19,8 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 | 診断                   | tiny-inline-diagnostic + Trouble                                     |
 | スクロールバー         | satellite.nvim（git変更・診断・検索マーカー）                        |
 | 折り畳み               | nvim-ufo（LSP / treesitter ベース）                                  |
+| テキストオブジェクト   | nvim-treesitter-textobjects + targets.vim + nvim-surround + vim-expand-region |
+| コンテキスト表示       | nvim-treesitter-context                                              |
 | AI アシスト            | codecompanion.nvim（ローカル LLM / LM Studio 対応）                  |
 | バイナリエディタ       | hex.nvim                                                             |
 | ターミナル             | toggleterm.nvim                                                      |
@@ -139,6 +141,20 @@ nvim
 | `<leader>ac` | Claude Code 起動              |
 | `<leader>ar` | 前のセッションを再開          |
 | `Alt+q`      | ウィンドウ表示 / 非表示トグル |
+
+### テキストオブジェクト
+
+| キー | 動作 |
+| ---- | ---- |
+| `vaf` / `vif` | 関数全体 / 内部を選択 |
+| `vac` / `vic` | クラス全体 / 内部を選択 |
+| `vaa` / `via` | 引数全体 / 内部を選択 |
+| `]f` / `[f` | 次 / 前の関数へ移動 |
+| `<leader>sn` / `<leader>sp` | 引数を次 / 前と入れ替え |
+| `ysiw"` | 単語を `"` で囲む（surround）|
+| `cs"'` | `"` を `'` に変更（surround）|
+| `ds"` | `"` を削除（surround）|
+| `+` / `_` | 選択範囲を拡大 / 縮小（expand-region）|
 
 ### AI アシスト（codecompanion）
 

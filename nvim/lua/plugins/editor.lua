@@ -18,26 +18,78 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
 		config = function()
 			require("nvim-treesitter").setup({
 				highlight = { enable = true },
-				indent = { enable = true },
+				indent   = { enable = true },
 				ensure_installed = {
-					"lua",
-					"rust",
-					"toml",
-					"markdown",
-					"markdown_inline",
-					"bash",
-					"json",
-					"c",
-					"cpp",
-					"zig",
-					"c_sharp",
-					"python",
+					"lua", "rust", "toml", "markdown", "markdown_inline",
+					"bash", "json", "c", "cpp", "zig", "c_sharp", "python",
+				},
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ac"] = "@class.outer",
+							["ic"] = "@class.inner",
+							["aa"] = "@parameter.outer",
+							["ia"] = "@parameter.inner",
+							["al"] = "@loop.outer",
+							["il"] = "@loop.inner",
+							["ab"] = "@block.outer",
+							["ib"] = "@block.inner",
+						},
+					},
+					move = {
+						enable = true,
+						set_jumps = true,
+						goto_next_start     = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
+						goto_next_end       = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
+						goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
+						goto_previous_end   = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
+					},
+					swap = {
+						enable = true,
+						swap_next     = { ["<leader>sn"] = "@parameter.inner" },
+						swap_previous = { ["<leader>sp"] = "@parameter.inner" },
+					},
 				},
 			})
 		end,
+	},
+
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		event = "BufReadPre",
+		opts = {
+			max_lines = 3,
+			trim_scope = "outer",
+		},
+	},
+
+	{
+		"kylechui/nvim-surround",
+		event = "VeryLazy",
+		opts = {},
+	},
+
+	{
+		"wellle/targets.vim",
+		event = "VeryLazy",
+	},
+
+	{
+		"terryma/vim-expand-region",
+		keys = {
+			{ "+", "<Plug>(expand_region_expand)", mode = { "n", "v" }, desc = "Expand region" },
+			{ "_", "<Plug>(expand_region_shrink)", mode = { "v" },      desc = "Shrink region" },
+		},
 	},
 
 	{
