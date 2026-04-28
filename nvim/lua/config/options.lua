@@ -21,6 +21,11 @@ opt.wrap = false
 opt.splitright = true
 opt.splitbelow = true
 
+-- folding (nvim-ufo)
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true
+
 -- カーソル：モードごとに色とシェイプを変える
 opt.guicursor = {
 	"n-c:block-CursorNormal",

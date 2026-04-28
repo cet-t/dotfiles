@@ -19,6 +19,8 @@ return {
 				lua = { "stylua" },
 				toml = { "taplo" },
 				markdown = { "prettier" },
+				json = { "prettier" },
+				jsonc = { "prettier" },
 				c = { "clang_format" },
 				cpp = { "clang_format" },
 				zig = { "zigfmt" },
@@ -62,6 +64,28 @@ return {
 			vim.keymap.set({ "n", "t" }, "<leader>j", function()
 				horiz_term:toggle()
 			end, { desc = "Toggle horizontal terminal" })
+		end,
+	},
+
+	-- lazygit
+	{
+		"kdheepak/lazygit.nvim",
+		cmd = { "LazyGit" },
+		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{ "<leader>gg", "<cmd>LazyGit<CR>", desc = "LazyGit" },
+		},
+	},
+
+	-- hex editor
+	{
+		"RaafatTurki/hex.nvim",
+		cmd = { "HexDump", "HexAssemble", "HexToggle" },
+		keys = {
+			{ "<leader>hx", "<cmd>HexToggle<CR>", desc = "Hex toggle" },
+		},
+		config = function()
+			require("hex").setup()
 		end,
 	},
 

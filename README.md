@@ -18,10 +18,13 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 | フォーマッタ           | conform.nvim (rustfmt, clang-format, zigfmt, stylua, prettier, ruff) |
 | 診断                   | tiny-inline-diagnostic + Trouble                                     |
 | スクロールバー         | satellite.nvim（git変更・診断・検索マーカー）                        |
+| 折り畳み               | nvim-ufo（LSP / treesitter ベース）                                  |
+| AI アシスト            | codecompanion.nvim（ローカル LLM / LM Studio 対応）                  |
+| バイナリエディタ       | hex.nvim                                                             |
 | ターミナル             | toggleterm.nvim                                                      |
 | ファイルアイコン       | nvim-material-icon                                                   |
 | テーマ                 | One Dark                                                             |
-| シェル                 | PowerShell (Windows) / zsh + zinit (Linux) + Starship               |
+| シェル                 | PowerShell (Windows) / zsh + zinit (Linux) + Starship                |
 | ターミナルエミュレータ | Alacritty / WezTerm / Windows Terminal                               |
 
 ## 必要なもの
@@ -131,8 +134,16 @@ nvim
 
 ### Claude Code
 
-| キー        | 動作                              |
-| ----------- | --------------------------------- |
-| `<leader>ac` | Claude Code 起動                 |
-| `<leader>ar` | 前のセッションを再開             |
-| `Alt+q`     | ウィンドウ表示 / 非表示トグル     |
+| キー         | 動作                          |
+| ------------ | ----------------------------- |
+| `<leader>ac` | Claude Code 起動              |
+| `<leader>ar` | 前のセッションを再開          |
+| `Alt+q`      | ウィンドウ表示 / 非表示トグル |
+
+### AI アシスト（codecompanion）
+
+| キー         | 動作                       |
+| ------------ | -------------------------- |
+| `<leader>ai` | チャットパネル toggle      |
+| `<leader>aa` | アクション一覧             |
+| `<leader>ae` | インライン編集（選択範囲） |
