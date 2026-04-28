@@ -26,6 +26,8 @@ return {
 				zig = { "zigfmt" },
 				cs = { "csharpier" },
 				python = { "ruff_format" },
+				yaml   = { "prettier" },
+				xml    = { "xmllint" },
 			},
 			format_on_save = {
 				timeout_ms = 3000,

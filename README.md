@@ -4,30 +4,30 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 
 ## 構成
 
-| カテゴリ               | ツール                                                               |
-| ---------------------- | -------------------------------------------------------------------- |
-| プラグイン管理         | lazy.nvim                                                            |
-| LSP / Rust             | rustaceanvim + rust-analyzer                                         |
-| LSP / C++              | nvim-lspconfig + clangd                                              |
-| LSP / Zig              | nvim-lspconfig + zls                                                 |
-| LSP / C#               | nvim-lspconfig + csharp-ls                                           |
-| LSP / Python           | nvim-lspconfig + pyright                                             |
-| 補完                   | nvim-cmp + LuaSnip + Copilot                                         |
-| ファジーファインダー   | Telescope                                                            |
-| ファイルツリー         | neo-tree                                                             |
-| フォーマッタ           | conform.nvim (rustfmt, clang-format, zigfmt, stylua, prettier, ruff) |
-| 診断                   | tiny-inline-diagnostic + Trouble                                     |
-| スクロールバー         | satellite.nvim（git変更・診断・検索マーカー）                        |
-| 折り畳み               | nvim-ufo（LSP / treesitter ベース）                                  |
+| カテゴリ               | ツール                                                                        |
+| ---------------------- | ----------------------------------------------------------------------------- |
+| プラグイン管理         | lazy.nvim                                                                     |
+| LSP / Rust             | rustaceanvim + rust-analyzer                                                  |
+| LSP / C++              | nvim-lspconfig + clangd                                                       |
+| LSP / Zig              | nvim-lspconfig + zls                                                          |
+| LSP / C#               | nvim-lspconfig + csharp-ls                                                    |
+| LSP / Python           | nvim-lspconfig + pyright                                                      |
+| 補完                   | nvim-cmp + LuaSnip + Copilot                                                  |
+| ファジーファインダー   | Telescope                                                                     |
+| ファイルツリー         | neo-tree                                                                      |
+| フォーマッタ           | conform.nvim (rustfmt, clang-format, zigfmt, stylua, prettier, ruff)          |
+| 診断                   | tiny-inline-diagnostic + Trouble                                              |
+| スクロールバー         | satellite.nvim（git変更・診断・検索マーカー）                                 |
+| 折り畳み               | nvim-ufo（LSP / treesitter ベース）                                           |
 | テキストオブジェクト   | nvim-treesitter-textobjects + targets.vim + nvim-surround + vim-expand-region |
-| コンテキスト表示       | nvim-treesitter-context                                              |
-| AI アシスト            | codecompanion.nvim（ローカル LLM / LM Studio 対応）                  |
-| バイナリエディタ       | hex.nvim                                                             |
-| ターミナル             | toggleterm.nvim                                                      |
-| ファイルアイコン       | nvim-material-icon                                                   |
-| テーマ                 | One Dark                                                             |
-| シェル                 | PowerShell (Windows) / zsh + zinit (Linux) + Starship                |
-| ターミナルエミュレータ | Alacritty / WezTerm / Windows Terminal                               |
+| コンテキスト表示       | nvim-treesitter-context                                                       |
+| AI アシスト            | codecompanion.nvim（ローカル LLM / LM Studio 対応）                           |
+| バイナリエディタ       | hex.nvim                                                                      |
+| ターミナル             | toggleterm.nvim                                                               |
+| ファイルアイコン       | nvim-material-icon                                                            |
+| テーマ                 | One Dark                                                                      |
+| シェル                 | PowerShell (Windows) / zsh + zinit (Linux) + Starship                         |
+| ターミナルエミュレータ | Alacritty / WezTerm / Windows Terminal                                        |
 
 ## 必要なもの
 
@@ -52,6 +52,66 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 ### Linux
 
 install.sh が自動でインストールしてくれる（apt / dnf / pacman 対応）。
+
+## プラグイン一覧
+
+### UI
+
+| プラグイン | 説明 |
+| --- | --- |
+| navarasu/onedark.nvim | カラースキーム（darker）|
+| akinsho/bufferline.nvim | タブバー |
+| nvim-lualine/lualine.nvim | ステータスバー |
+| nvim-neo-tree/neo-tree.nvim | ファイルツリー |
+| lukas-reineke/indent-blankline.nvim | インデントガイド |
+| folke/noice.nvim | UI 強化（コマンド・通知・ホバー）|
+| lewis6991/satellite.nvim | スクロールバー（git・診断・検索マーカー）|
+| nvim-tree/nvim-web-devicons | ファイルアイコン |
+
+### エディタ
+
+| プラグイン | 説明 |
+| --- | --- |
+| nvim-telescope/telescope.nvim | ファジーファインダー |
+| nvim-treesitter/nvim-treesitter | シンタックスハイライト・インデント |
+| nvim-treesitter/nvim-treesitter-textobjects | 関数・クラス・引数などのテキストオブジェクト |
+| nvim-treesitter/nvim-treesitter-context | 現在のスコープをバッファ上部に固定表示 |
+| kylechui/nvim-surround | 括弧・クォートの追加・変更・削除 |
+| wellle/targets.vim | 区切り文字テキストオブジェクト拡張 |
+| terryma/vim-expand-region | 選択範囲を段階的に拡大・縮小 |
+| kevinhwang91/nvim-ufo | 折り畳み（LSP / treesitter）|
+| numToStr/Comment.nvim | コメントトグル |
+| windwp/nvim-autopairs | 括弧の自動補完 |
+| folke/which-key.nvim | キーバインドヒント |
+| mrjones2014/smart-splits.nvim | ウィンドウリサイズ・移動 |
+| lewis6991/gitsigns.nvim | git 差分をサインカラムに表示 |
+| rachartier/tiny-inline-diagnostic.nvim | インライン診断表示 |
+| folke/trouble.nvim | 診断パネル |
+| MeanderingProgrammer/render-markdown.nvim | Markdown インラインレンダリング |
+| iamcco/markdown-preview.nvim | Markdown ブラウザプレビュー |
+
+### LSP / 補完
+
+| プラグイン | 説明 |
+| --- | --- |
+| neovim/nvim-lspconfig | LSP クライアント設定（C++ / Zig / C# / Python）|
+| mrcjkb/rustaceanvim | Rust LSP（rust-analyzer）|
+| hrsh7th/nvim-cmp | 補完エンジン |
+| L3MON4D3/LuaSnip | スニペット |
+| zbirenbaum/copilot.lua | GitHub Copilot インライン補完 |
+| zbirenbaum/copilot-cmp | Copilot を nvim-cmp に統合 |
+| saecki/crates.nvim | Cargo.toml の依存バージョン補完 |
+
+### ツール
+
+| プラグイン | 説明 |
+| --- | --- |
+| stevearc/conform.nvim | フォーマッタ（rustfmt / clangd / zigfmt / stylua / prettier / ruff / xmllint）|
+| akinsho/toggleterm.nvim | ターミナル（フロート・下ペイン）|
+| greggh/claude-code.nvim | Claude Code 統合 |
+| olimorris/codecompanion.nvim | ローカル LLM チャット・インライン編集 |
+| RaafatTurki/hex.nvim | バイナリエディタ |
+| andweeb/presence.nvim | Discord Rich Presence |
 
 ## セットアップ
 
@@ -144,17 +204,17 @@ nvim
 
 ### テキストオブジェクト
 
-| キー | 動作 |
-| ---- | ---- |
-| `vaf` / `vif` | 関数全体 / 内部を選択 |
-| `vac` / `vic` | クラス全体 / 内部を選択 |
-| `vaa` / `via` | 引数全体 / 内部を選択 |
-| `]f` / `[f` | 次 / 前の関数へ移動 |
-| `<leader>sn` / `<leader>sp` | 引数を次 / 前と入れ替え |
-| `ysiw"` | 単語を `"` で囲む（surround）|
-| `cs"'` | `"` を `'` に変更（surround）|
-| `ds"` | `"` を削除（surround）|
-| `+` / `_` | 選択範囲を拡大 / 縮小（expand-region）|
+| キー                        | 動作                                   |
+| --------------------------- | -------------------------------------- |
+| `vaf` / `vif`               | 関数全体 / 内部を選択                  |
+| `vac` / `vic`               | クラス全体 / 内部を選択                |
+| `vaa` / `via`               | 引数全体 / 内部を選択                  |
+| `]f` / `[f`                 | 次 / 前の関数へ移動                    |
+| `<leader>sn` / `<leader>sp` | 引数を次 / 前と入れ替え                |
+| `ysiw"`                     | 単語を `"` で囲む（surround）          |
+| `cs"'`                      | `"` を `'` に変更（surround）          |
+| `ds"`                       | `"` を削除（surround）                 |
+| `+` / `_`                   | 選択範囲を拡大 / 縮小（expand-region） |
 
 ### AI アシスト（codecompanion）
 

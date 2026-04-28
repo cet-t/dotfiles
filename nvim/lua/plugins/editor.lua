@@ -27,7 +27,7 @@ return {
 				indent   = { enable = true },
 				ensure_installed = {
 					"lua", "rust", "toml", "markdown", "markdown_inline",
-					"bash", "json", "c", "cpp", "zig", "c_sharp", "python",
+					"bash", "json", "yaml", "c", "cpp", "zig", "c_sharp", "python",
 				},
 				textobjects = {
 					select = {
