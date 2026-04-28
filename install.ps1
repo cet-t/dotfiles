@@ -27,7 +27,8 @@ $scoopPkgs = @(
     "starship",
     "stylua",
     "taplo",
-    "nodejs"
+    "nodejs",
+    "lazygit"
 )
 foreach ($pkg in $scoopPkgs) {
     if (-not (Get-Command $pkg -ErrorAction SilentlyContinue)) {

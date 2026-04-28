@@ -16,7 +16,7 @@ history = 10000
 
 [font]
 normal = { family = "Monofur Nerd Font Mono", style = "Regular" }
-size = 16.0
+size = 14.0
 
 [colors.primary]
 background = "#282c34"
