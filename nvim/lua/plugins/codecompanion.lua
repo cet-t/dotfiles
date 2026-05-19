@@ -65,6 +65,7 @@ return {
 				refresh = "<leader>ar",
 				toggle  = { default = "<leader>ai" },
 			},
+			hints = { enabled = false },
 			windows = {
 				position = "right",
 				width = 35,
