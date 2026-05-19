@@ -156,14 +156,15 @@
 
 ---
 
-## AI (Avante + Gemini)
+## AI (CodeCompanion + Gemini)
 
-| キー         | 動作                        |
-| ------------ | --------------------------- |
-| `<leader>ai` | Avante パネル toggle        |
-| `<leader>aa` | AI に質問                   |
-| `<leader>ae` | 選択範囲をインライン編集    |
-| `<leader>ar` | 回答をリフレッシュ          |
+| キー         | 動作                         |
+| ------------ | ---------------------------- |
+| `<leader>ai` | チャットパネル toggle        |
+| `<leader>aa` | AI アクション一覧            |
+| `<leader>ae` | 選択範囲をインライン編集     |
+| `<leader>as` | チャットを保存               |
+| `<leader>al` | 保存済みチャットをロード     |
 
 ## インライン補完 (minuet-ai + Gemini)
 

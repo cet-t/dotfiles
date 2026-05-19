@@ -1,21 +1,36 @@
 return {
 	{
-		"yetone/avante.nvim",
-		event = "VeryLazy",
-		version = false,
-		build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
+		"olimorris/codecompanion.nvim",
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
 			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"MeanderingProgrammer/render-markdown.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
+		keys = {
+			{ "<leader>ai", "<cmd>CodeCompanionChat Toggle<CR>", desc = "AI Chat",        mode = { "n", "v" } },
+			{ "<leader>aa", "<cmd>CodeCompanionActions<CR>",     desc = "AI Actions",     mode = { "n", "v" } },
+			{ "<leader>ae", "<cmd>CodeCompanion<CR>",            desc = "AI Inline edit", mode = { "v" } },
+			{ "<leader>as", "<cmd>CodeCompanionChat Save<CR>",   desc = "AI Save chat",   mode = { "n" } },
+			{ "<leader>al", "<cmd>CodeCompanionChat Load<CR>",   desc = "AI Load chat",   mode = { "n" } },
 		},
 		opts = {
-			provider = "gemini",
-			gemini = {
-				model = "gemini-2.5-pro-exp-03-25",
-				api_key_name = "GEMINI_API_KEY",
+			adapters = {
+				gemini = function()
+					return require("codecompanion.adapters").extend("gemini", {
+						env = { api_key = "GEMINI_API_KEY" },
+						schema = {
+							model = { default = "gemini-2.5-pro-exp-03-25" },
+						},
+					})
+				end,
+			},
+			strategies = {
+				chat   = { adapter = "gemini" },
+				inline = { adapter = "gemini" },
+				agent  = { adapter = "gemini" },
+			},
+			opts = {
+				save_chat_to_disk = true,
 			},
 			system_prompt = function()
 				return [[
@@ -59,18 +74,13 @@ return {
 必ず日本語で回答せよ。
 ]]
 			end,
-			mappings = {
-				ask     = "<leader>aa",
-				edit    = "<leader>ae",
-				refresh = "<leader>ar",
-				toggle  = { default = "<leader>ai" },
-			},
-			windows = {
-				position = "right",
-				width = 35,
-			},
-			history = {
-				storage_path = vim.fn.stdpath("data") .. "/avante",
+			display = {
+				chat = {
+					window = {
+						layout = "vertical",
+						width = 0.35,
+					},
+				},
 			},
 		},
 	},
