@@ -7,31 +7,25 @@ return {
 		},
 		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
 		keys = {
-			{ "<leader>ai", "<cmd>CodeCompanionChat Toggle<CR>", desc = "AI Chat",            mode = { "n", "v" } },
-			{ "<leader>aa", "<cmd>CodeCompanionActions<CR>",     desc = "AI Actions",         mode = { "n", "v" } },
-			{ "<leader>ae", "<cmd>CodeCompanion<CR>",            desc = "AI Inline edit",     mode = { "v" } },
+			{ "<leader>ai", "<cmd>CodeCompanionChat Toggle<CR>", desc = "AI Chat",        mode = { "n", "v" } },
+			{ "<leader>aa", "<cmd>CodeCompanionActions<CR>",     desc = "AI Actions",     mode = { "n", "v" } },
+			{ "<leader>ae", "<cmd>CodeCompanion<CR>",            desc = "AI Inline edit", mode = { "v" } },
 		},
 		opts = {
 			adapters = {
-				lmstudio = function()
-					return require("codecompanion.adapters").extend("openai_compatible", {
-						name = "lmstudio",
-						env = {
-							url = "http://localhost:1234",
-							api_key = "lm-studio",
-						},
+				gemini = function()
+					return require("codecompanion.adapters").extend("gemini", {
+						env = { api_key = "GEMINI_API_KEY" },
 						schema = {
-							model = {
-								default = "local-model",
-							},
+							model = { default = "gemini-2.5-pro-preview-05-06" },
 						},
 					})
 				end,
 			},
 			strategies = {
-				chat   = { adapter = "lmstudio" },
-				inline = { adapter = "lmstudio" },
-				agent  = { adapter = "lmstudio" },
+				chat   = { adapter = "gemini" },
+				inline = { adapter = "gemini" },
+				agent  = { adapter = "gemini" },
 			},
 			display = {
 				chat = {

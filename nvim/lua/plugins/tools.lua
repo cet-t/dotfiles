@@ -19,6 +19,7 @@ return {
 				lua = { "stylua" },
 				toml = { "taplo" },
 				markdown = { "prettier" },
+				go = { "goimports", "gofmt" },
 				json = { "prettier" },
 				jsonc = { "prettier" },
 				c = { "clang_format" },

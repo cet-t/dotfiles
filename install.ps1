@@ -28,7 +28,8 @@ $scoopPkgs = @(
     "stylua",
     "taplo",
     "nodejs",
-    "lazygit"
+    "lazygit",
+    "go"
 )
 foreach ($pkg in $scoopPkgs) {
     if (-not (Get-Command $pkg -ErrorAction SilentlyContinue)) {
@@ -43,6 +44,21 @@ foreach ($pkg in $scoopPkgs) {
 if (-not (Get-Command prettier -ErrorAction SilentlyContinue)) {
     Write-Host "Installing prettier..."
     npm install -g prettier
+}
+
+# Go tools
+$goTools = @(
+    "golang.org/x/tools/gopls@latest",
+    "golang.org/x/tools/cmd/goimports@latest"
+)
+foreach ($tool in $goTools) {
+    $bin = ($tool -split "/")[-1] -replace "@.*", ""
+    if (-not (Get-Command $bin -ErrorAction SilentlyContinue)) {
+        Write-Host "Installing $bin..."
+        go install $tool
+    } else {
+        Write-Host "Already installed: $bin"
+    }
 }
 
 # nvim

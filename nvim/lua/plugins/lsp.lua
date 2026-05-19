@@ -54,6 +54,23 @@ return {
 				vim.lsp.enable("zls")
 			end
 
+			-- Go
+			if vim.fn.executable("gopls") == 1 then
+				vim.lsp.config("gopls", {
+					on_attach = on_attach,
+					capabilities = caps,
+					settings = {
+						gopls = {
+							analyses = { unusedparams = true },
+							staticcheck = true,
+							gofumpt = true,
+						},
+					},
+					root_markers = { "go.mod", "go.work", ".git" },
+				})
+				vim.lsp.enable("gopls")
+			end
+
 			-- Python
 			if vim.fn.executable("pyright") == 1 then
 				vim.lsp.config("pyright", {
