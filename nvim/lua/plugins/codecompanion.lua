@@ -1,17 +1,22 @@
 return {
 	{
-		"olimorris/codecompanion.nvim",
+		"yetone/avante.nvim",
+		event = "VeryLazy",
+		version = false,
+		build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
-		},
-		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
-		keys = {
-			{ "<leader>ai", "<cmd>CodeCompanionChat Toggle<CR>", desc = "AI Chat",        mode = { "n", "v" } },
-			{ "<leader>aa", "<cmd>CodeCompanionActions<CR>",     desc = "AI Actions",     mode = { "n", "v" } },
-			{ "<leader>ae", "<cmd>CodeCompanion<CR>",            desc = "AI Inline edit", mode = { "v" } },
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"nvim-tree/nvim-web-devicons",
+			"MeanderingProgrammer/render-markdown.nvim",
 		},
 		opts = {
+			provider = "gemini",
+			gemini = {
+				model = "gemini-2.5-pro-exp-03-25",
+				api_key_name = "GEMINI_API_KEY",
+			},
 			system_prompt = function()
 				return [[
 # Role: Senior Full-Stack Engineer & Architect
@@ -54,28 +59,18 @@ return {
 必ず日本語で回答せよ。
 ]]
 			end,
-			adapters = {
-				gemini = function()
-					return require("codecompanion.adapters").extend("gemini", {
-						env = { api_key = "GEMINI_API_KEY" },
-						schema = {
-							model = { default = "gemini-2.5-pro-exp-03-25" },
-						},
-					})
-				end,
+			mappings = {
+				ask     = "<leader>aa",
+				edit    = "<leader>ae",
+				refresh = "<leader>ar",
+				toggle  = { default = "<leader>ai" },
 			},
-			strategies = {
-				chat   = { adapter = "gemini" },
-				inline = { adapter = "gemini" },
-				agent  = { adapter = "gemini" },
+			windows = {
+				position = "right",
+				width = 35,
 			},
-			display = {
-				chat = {
-					window = {
-						layout = "vertical",
-						width = 0.35,
-					},
-				},
+			history = {
+				storage_path = vim.fn.stdpath("data") .. "/avante",
 			},
 		},
 	},

@@ -12,7 +12,8 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 | LSP / Zig              | nvim-lspconfig + zls                                                          |
 | LSP / C#               | nvim-lspconfig + csharp-ls                                                    |
 | LSP / Python           | nvim-lspconfig + pyright                                                      |
-| 補完                   | nvim-cmp + LuaSnip + Copilot                                                  |
+| 補完                   | nvim-cmp + LuaSnip + minuet-ai (Gemini)                                       |
+| AI アシスタント        | avante.nvim (Gemini 2.5 Pro)                                                  |
 | ファジーファインダー   | Telescope                                                                     |
 | ファイルツリー         | neo-tree                                                                      |
 | フォーマッタ           | conform.nvim (rustfmt, clang-format, zigfmt, stylua, prettier, ruff)          |
