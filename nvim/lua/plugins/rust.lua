@@ -10,7 +10,7 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			{
 				"L3MON4D3/LuaSnip",
-				build = "make install_jsregexp",
+				build = vim.fn.has("win32") == 0 and "make install_jsregexp" or "",
 				dependencies = { "rafamadriz/friendly-snippets" },
 				config = function()
 					require("luasnip.loaders.from_vscode").lazy_load()

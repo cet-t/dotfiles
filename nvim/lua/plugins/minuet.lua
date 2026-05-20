@@ -5,11 +5,13 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("minuet").setup({
-				provider = "gemini",
+				provider = "openai_compatible",
 				provider_options = {
-					gemini = {
-						model = "gemini-2.0-flash",
-						api_key = "GEMINI_API_KEY",
+					openai_compatible = {
+						model = "grok-3-mini-fast",
+						end_point = "https://api.x.ai/v1/chat/completions",
+						api_key = "XAI_API_KEY",
+						name = "Grok",
 					},
 				},
 				virtualtext = {

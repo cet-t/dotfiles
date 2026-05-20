@@ -9,7 +9,10 @@ return {
 		config = function()
 			local telescope = require("telescope")
 			telescope.setup({
-				defaults = { path_display = { "truncate" } },
+				defaults = {
+					path_display = { "truncate" },
+					preview = { treesitter = false },
+				},
 			})
 			pcall(telescope.load_extension, "fzf")
 		end,

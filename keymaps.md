@@ -165,6 +165,7 @@
 | `<leader>ae` | 選択範囲をインライン編集     |
 | `<leader>as` | チャットを保存               |
 | `<leader>al` | 保存済みチャットをロード     |
+| `<leader>ab` | 現在バッファをチャットに追加 |
 
 ## インライン補完 (minuet-ai + Gemini)
 
