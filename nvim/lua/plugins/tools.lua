@@ -44,6 +44,7 @@ return {
 		keys = {
 			{ "<C-\\>", desc = "Toggle float terminal" },
 			{ "<leader>j", desc = "Toggle horizontal terminal" },
+			{ "<M-q>", desc = "Toggle Gemini CLI" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -67,6 +68,17 @@ return {
 			vim.keymap.set({ "n", "t" }, "<leader>j", function()
 				horiz_term:toggle()
 			end, { desc = "Toggle horizontal terminal" })
+
+			-- Gemini CLI
+			local gemini_term = Terminal:new({
+				cmd = "gemini",
+				direction = "float",
+				hidden = true,
+				float_opts = { border = "curved" },
+			})
+			vim.keymap.set({ "n", "t" }, "<M-q>", function()
+				gemini_term:toggle()
+			end, { desc = "Toggle Gemini CLI" })
 		end,
 	},
 
@@ -100,7 +112,6 @@ return {
 		keys = {
 			{ "<leader>ac", "<cmd>ClaudeCode<CR>", desc = "Claude Code", mode = { "n" } },
 			{ "<leader>ar", "<cmd>ClaudeCodeContinue<CR>", desc = "Claude Code (resume)", mode = { "n" } },
-			{ "<M-q>", "<cmd>ClaudeCode<CR>", desc = "Toggle Claude Code", mode = { "n", "t" } },
 		},
 		opts = {
 			window = {

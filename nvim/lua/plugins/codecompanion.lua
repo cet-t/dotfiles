@@ -22,11 +22,12 @@ return {
 							env = { api_key = "GEMINI_API_KEY" },
 							schema = {
 								model = {
-									default = "gemini-3.1-flash",
+									default = "gemini-3-flash-preview",
 									choices = {
+										"gemini-3-flash-preview",
+										"gemini-3.1-flash-lite",
 										"gemini-3.1-flash",
 										"gemini-3.1-pro-preview",
-										"gemini-3.5-flash",
 									},
 								},
 							},
@@ -49,19 +50,16 @@ return {
 			},
 			strategies = {
 				chat = {
-					adapter = "grok",
+					adapter = "gemini",
 					opts = {
-						system_prompt = function() return "Always respond in Japanese. Use the available tools to directly edit files instead of showing code in chat." end,
-						tools = {
-							default_tools = { "files" },
-						},
+						system_prompt = function() return "Always respond in Japanese." end,
 					},
 					slash_commands = {
 						["file"] = { opts = { provider = "telescope" } },
 					},
 				},
-				inline = { adapter = "grok" },
-				agent  = { adapter = "grok" },
+				inline = { adapter = "gemini" },
+				agent  = { adapter = "gemini" },
 			},
 			rules = {
 				default = { files = {} },
