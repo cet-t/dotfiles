@@ -94,20 +94,6 @@ return {
 		end,
 	},
 
-	-- Grok CLI
-	{
-		dir = "D:/.repo/grok-cli.nvim",
-		name = "grok-cli.nvim",
-		keys = {
-			{ "<M-w>", "<cmd>GrokToggle<CR>", desc = "Toggle Grok CLI", mode = { "n", "t" } },
-		},
-		opts = {
-			keymaps = {
-				toggle = false, -- bound above via lazy keys
-			},
-		},
-	},
-
 	-- Claude Code
 	{
 		"greggh/claude-code.nvim",
