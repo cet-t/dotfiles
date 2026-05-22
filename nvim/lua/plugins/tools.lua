@@ -45,6 +45,7 @@ return {
 			{ "<C-\\>", desc = "Toggle float terminal" },
 			{ "<leader>j", desc = "Toggle horizontal terminal" },
 			{ "<M-q>", desc = "Toggle Gemini CLI" },
+			{ "<M-e>", desc = "Toggle Kilocode" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -79,6 +80,17 @@ return {
 			vim.keymap.set({ "n", "t" }, "<M-q>", function()
 				gemini_term:toggle()
 			end, { desc = "Toggle Gemini CLI" })
+
+			-- Kilocode
+			local kilocode_term = Terminal:new({
+				cmd = "kilocode",
+				direction = "float",
+				hidden = true,
+				float_opts = { border = "curved" },
+			})
+			vim.keymap.set({ "n", "t" }, "<M-e>", function()
+				kilocode_term:toggle()
+			end, { desc = "Toggle Kilocode" })
 		end,
 	},
 
@@ -110,5 +122,74 @@ return {
 				height = 0.8,
 			},
 		},
+	},
+
+	-- agentic.nvim: ACP protocol client for Neovim
+	{
+		"carlos-algms/agentic.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		event = "VeryLazy",
+		lazy = true,
+		init = function()
+			-- Preload the module at parse time so that keymaps defined in `keys = { ... }`
+			-- can call `require("agentic")` from inside their callbacks at lazy.nvim keymap
+			-- dispatch time.
+			pcall(require, "agentic")
+		end,
+		keys = {
+			{
+				"<leader>ac",
+				function()
+					-- require("agentic").open() is preferred instead of a Vim command
+
+					return require("agentic").open()
+				end,
+				desc = "Open agentic chat",
+			},
+			{
+				"<leader>af",
+				function()
+					return require("agentic").add_file()
+				end,
+				desc = "Pick file for agentic",
+			},
+			{
+				"<leader>as",
+				mode = "v",
+				function()
+					return require("agentic").add_selection_or_file_to_context()
+				end,
+				desc = "Send selection to agentic",
+			},
+		},
+		opts = function()
+			return {
+				-- Each provider name is an arbitrary identifier; it maps to a command
+				-- and args that the ACP client spawns via stdio transport
+				acp_providers = {
+					["kilocode-acp"] = {
+						name = "Kilo Code ACP",
+						command = "kilocode",
+						-- Spawns: `kilocode acp`  (stdio / ACP proto)
+						args = { "acp" },
+						env = {
+							NODE_NO_WARNINGS = "1",
+							IS_AI_TERMINAL = "1",
+						},
+					},
+				},
+				provider = "kilocode-acp",
+				--- keymaps are widget-local (inside the chat popup)
+				keymaps = {},
+				errors = {
+					fatal = function(msg)
+						vim.notify("[agentic] " .. msg, vim.log.levels.ERROR)
+					end,
+					non_fatal = function(msg)
+						vim.notify("[agentic] " .. msg, vim.log.levels.WARN)
+					end,
+				},
+			}
+		end,
 	},
 }
