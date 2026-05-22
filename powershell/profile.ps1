@@ -13,5 +13,3 @@ if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
 
-# OCaml
-& opam env | Out-String | Invoke-Expression
