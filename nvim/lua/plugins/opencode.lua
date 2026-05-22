@@ -59,11 +59,11 @@ return {
 				return require("opencode").operator("@this ")
 			end, { desc = "OpenCode: add range", expr = true })
 
-			map("n", "<S-C-u>", function()
+			map("n", "<C-k>", function()
 				require("opencode").command("session.half.page.up")
 			end, { desc = "OpenCode: scroll up" })
 
-			map("n", "<S-C-d>", function()
+			map("n", "<C-j>", function()
 				require("opencode").command("session.half.page.down")
 			end, { desc = "OpenCode: scroll down" })
 		end,
