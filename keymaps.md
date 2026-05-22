@@ -264,6 +264,19 @@
 | `<leader>ac` | Claude Code 起動     |
 | `<leader>ar` | 前のセッションを再開 |
 
+## OpenCode
+
+| キー                  | 動作                          |
+| --------------------- | ----------------------------- |
+| `<leader>ot`          | OpenCode トグル               |
+| `<leader>oa`          | 選択範囲について質問          |
+| `<leader>os`          | プロンプト/コマンド選択       |
+| `<leader>on`          | 新規セッション                |
+| `<leader>ou`          | アンドゥ                      |
+| `<leader>or`          | リドゥ                        |
+| `go{motion}`          | モーション範囲をコンテキスト追加 |
+| `<C-k>` / `<C-j>`     | メッセージスクロール          |
+
 ## Gemini CLI
 
 | キー    | 動作                    |
