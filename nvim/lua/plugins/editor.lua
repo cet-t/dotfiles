@@ -125,6 +125,19 @@ return {
 			vim.g.blamer_template = "<committer>, <committer-time> • <summary>"
 			vim.g.blamer_date_format = "%m/%d %H:%M"
 			vim.g.blamer_relative_time = true
+
+			-- Windows: remove LC_ALL=C prefix (cmd.exe doesn't support env-var-prefix syntax)
+			if vim.fn.has("win32") == 1 then
+				local f = vim.fn.stdpath("data") .. "/lazy/blamer.nvim/autoload/blamer.vim"
+				local lines = vim.fn.readfile(f)
+				for i, line in ipairs(lines) do
+					if line:find("LC_ALL=C") then
+						lines[i] = "  let l:command = 'git -C ' . l:dir_path . ' --no-pager blame --line-porcelain -L ' . a:line_number . ',' . l:end_line . ' -- ' . l:file_path_escaped"
+						vim.fn.writefile(lines, f)
+						break
+					end
+				end
+			end
 		end,
 	},
 
