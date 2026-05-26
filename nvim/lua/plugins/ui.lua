@@ -1,13 +1,11 @@
 return {
 	{
 		"DaikyXendo/nvim-material-icon",
-		lazy = true,
+		priority = 100,
 		config = function()
-			require("nvim-material-icon").setup()
-			require("nvim-web-devicons").setup({ override = require("nvim-material-icon").get_icons() })
+			require("nvim-web-devicons").setup()
 		end,
 	},
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
 
 	{
 		"famiu/bufdelete.nvim",
@@ -61,7 +59,7 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			options = {
-				theme = "onedark",
+				theme = "melange",
 				globalstatus = true,
 			},
 			sections = {

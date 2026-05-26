@@ -27,10 +27,22 @@ return {
 		config = function()
 			require("nvim-treesitter").setup({
 				highlight = { enable = true },
-				indent   = { enable = true },
+				indent = { enable = true },
 				ensure_installed = {
-					"lua", "rust", "toml", "markdown", "markdown_inline",
-					"bash", "json", "yaml", "c", "cpp", "zig", "c_sharp", "python", "go",
+					"lua",
+					"rust",
+					"toml",
+					"markdown",
+					"markdown_inline",
+					"bash",
+					"json",
+					"yaml",
+					"c",
+					"cpp",
+					"zig",
+					"c_sharp",
+					"python",
+					"go",
 				},
 				textobjects = {
 					select = {
@@ -52,14 +64,14 @@ return {
 					move = {
 						enable = true,
 						set_jumps = true,
-						goto_next_start     = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
-						goto_next_end       = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
+						goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
+						goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
 						goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
-						goto_previous_end   = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
+						goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
 					},
 					swap = {
 						enable = true,
-						swap_next     = { ["<leader>sn"] = "@parameter.inner" },
+						swap_next = { ["<leader>sn"] = "@parameter.inner" },
 						swap_previous = { ["<leader>sp"] = "@parameter.inner" },
 					},
 				},
@@ -91,7 +103,7 @@ return {
 		"terryma/vim-expand-region",
 		keys = {
 			{ "+", "<Plug>(expand_region_expand)", mode = { "n", "v" }, desc = "Expand region" },
-			{ "_", "<Plug>(expand_region_shrink)", mode = { "v" },      desc = "Shrink region" },
+			{ "_", "<Plug>(expand_region_shrink)", mode = { "v" }, desc = "Shrink region" },
 		},
 	},
 
@@ -132,11 +144,17 @@ return {
 				local lines = vim.fn.readfile(f)
 				for i, line in ipairs(lines) do
 					if line:find("LC_ALL=C") then
-						lines[i] = "  let l:command = 'git -C ' . l:dir_path . ' --no-pager blame --line-porcelain -L ' . a:line_number . ',' . l:end_line . ' -- ' . l:file_path_escaped"
+						lines[i] =
+							"  let l:command = 'git -C ' . l:dir_path . ' --no-pager blame --line-porcelain -L ' . a:line_number . ',' . l:end_line . ' -- ' . l:file_path_escaped"
 						vim.fn.writefile(lines, f)
 						break
 					end
 				end
+				vim.fn.system(
+					"git -C "
+						.. vim.fn.stdpath("data")
+						.. "/lazy/blamer.nvim update-index --assume-unchanged autoload/blamer.vim"
+				)
 			end
 		end,
 	},
@@ -195,12 +213,30 @@ return {
 		dependencies = { "kevinhwang91/promise-async" },
 		event = "BufReadPost",
 		keys = {
-			{ "zR", function() require("ufo").openAllFolds()  end, desc = "Open all folds" },
-			{ "zM", function() require("ufo").closeAllFolds() end, desc = "Close all folds" },
-			{ "zK", function()
-				local winid = require("ufo").peekFoldedLinesUnderCursor()
-				if not winid then vim.lsp.buf.hover() end
-			end, desc = "Peek fold" },
+			{
+				"zR",
+				function()
+					require("ufo").openAllFolds()
+				end,
+				desc = "Open all folds",
+			},
+			{
+				"zM",
+				function()
+					require("ufo").closeAllFolds()
+				end,
+				desc = "Close all folds",
+			},
+			{
+				"zK",
+				function()
+					local winid = require("ufo").peekFoldedLinesUnderCursor()
+					if not winid then
+						vim.lsp.buf.hover()
+					end
+				end,
+				desc = "Peek fold",
+			},
 		},
 		opts = {
 			provider_selector = function()
