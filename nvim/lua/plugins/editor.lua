@@ -43,6 +43,7 @@ return {
 					"c_sharp",
 					"python",
 					"go",
+					"regex",
 				},
 				textobjects = {
 					select = {
@@ -122,41 +123,18 @@ return {
 				change = { text = "▎" },
 				delete = { text = "" },
 			},
+			current_line_blame = false,
+		},
+		keys = {
+			{ "<leader>gb", "<cmd>Gitsigns blame_line<CR>", desc = "Git blame line" },
+			{ "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<CR>", desc = "Toggle line blame" },
 		},
 	},
 
 	{
-		"APZelos/blamer.nvim",
-		event = "BufReadPre",
-		init = function()
-			vim.g.blamer_enabled = true
-			vim.g.blamer_delay = 500
-			vim.g.blamer_show_in_visual_modes = false
-			vim.g.blamer_show_in_insert_modes = false
-			vim.g.blamer_prefix = "  "
-			vim.g.blamer_template = "<committer>, <committer-time> • <summary>"
-			vim.g.blamer_date_format = "%m/%d %H:%M"
-			vim.g.blamer_relative_time = true
-
-			-- Windows: remove LC_ALL=C prefix (cmd.exe doesn't support env-var-prefix syntax)
-			if vim.fn.has("win32") == 1 then
-				local f = vim.fn.stdpath("data") .. "/lazy/blamer.nvim/autoload/blamer.vim"
-				local lines = vim.fn.readfile(f)
-				for i, line in ipairs(lines) do
-					if line:find("LC_ALL=C") then
-						lines[i] =
-							"  let l:command = 'git -C ' . l:dir_path . ' --no-pager blame --line-porcelain -L ' . a:line_number . ',' . l:end_line . ' -- ' . l:file_path_escaped"
-						vim.fn.writefile(lines, f)
-						break
-					end
-				end
-				vim.fn.system(
-					"git -C "
-						.. vim.fn.stdpath("data")
-						.. "/lazy/blamer.nvim update-index --assume-unchanged autoload/blamer.vim"
-				)
-			end
-		end,
+		"diegok/live-autoread.nvim",
+		event = "VeryLazy",
+		opts = {},
 	},
 
 	{

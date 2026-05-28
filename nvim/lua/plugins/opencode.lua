@@ -3,9 +3,11 @@ return {
 		"nickjvandyke/opencode.nvim",
 		version = "*",
 		dependencies = {
-			{
-				"folke/snacks.nvim",
-				opts = {
+		{
+			"folke/snacks.nvim",
+			lazy = false,
+			priority = 1000,
+			opts = {
 					input = {},
 					picker = {
 						actions = {
