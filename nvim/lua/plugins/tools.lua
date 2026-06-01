@@ -45,6 +45,7 @@ return {
 			{ "<C-\\>", desc = "Toggle float terminal" },
 			{ "<leader>j", desc = "Toggle horizontal terminal" },
 			{ "<M-q>", desc = "Toggle Gemini CLI" },
+			{ "<leader>kt", desc = "Toggle Kilocode" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -79,6 +80,17 @@ return {
 			vim.keymap.set({ "n", "t" }, "<M-q>", function()
 				gemini_term:toggle()
 			end, { desc = "Toggle Gemini CLI" })
+
+			-- Kilocode
+			local kilocode_term = Terminal:new({
+				cmd = "kilocode",
+				direction = "vertical",
+				size = math.floor(vim.o.columns * 0.35),
+				hidden = true,
+			})
+			vim.keymap.set({ "n", "t" }, "<leader>kt", function()
+				kilocode_term:toggle(math.floor(vim.o.columns * 0.35))
+			end, { desc = "Toggle Kilocode" })
 		end,
 	},
 
