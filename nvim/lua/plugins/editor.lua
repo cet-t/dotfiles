@@ -161,10 +161,10 @@ return {
 			vim.keymap.set("n", "<leader>wl", s.resize_right, { desc = "Resize right" })
 			vim.keymap.set("n", "<leader>w=", "<C-w>=", { desc = "Equalize windows" })
 			-- window move
-			vim.keymap.set("n", "<C-Left>", "<C-w>h", { desc = "Move to left window" })
-			vim.keymap.set("n", "<C-Down>", "<C-w>j", { desc = "Move to lower window" })
-			vim.keymap.set("n", "<C-Up>", "<C-w>k", { desc = "Move to upper window" })
-			vim.keymap.set("n", "<C-Right>", "<C-w>l", { desc = "Move to right window" })
+			vim.keymap.set({ "n", "t" }, "<C-Left>", "<C-w>h", { desc = "Move to left window" })
+			vim.keymap.set({ "n", "t" }, "<C-Down>", "<C-w>j", { desc = "Move to lower window" })
+			vim.keymap.set({ "n", "t" }, "<C-Up>", "<C-w>k", { desc = "Move to upper window" })
+			vim.keymap.set({ "n", "t" }, "<C-Right>", "<C-w>l", { desc = "Move to right window" })
 		end,
 	},
 
