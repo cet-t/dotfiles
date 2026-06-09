@@ -2,16 +2,17 @@ return {
 	{
 		"milanglacier/minuet-ai.nvim",
 		event = "InsertEnter",
-		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("minuet").setup({
-				provider = "openai_compatible",
+				provider = "codestral",
 				provider_options = {
-					openai_compatible = {
-						model = "grok-3-mini-fast",
-						end_point = "https://api.x.ai/v1/chat/completions",
-						api_key = "XAI_API_KEY",
-						name = "Grok",
+					codestral = {
+						model = "codestral-latest",
+						api_key = "CODESTRAL_API_KEY",
+						optional = {
+							max_tokens = 256,
+							stop = { "\n\n" },
+						},
 					},
 				},
 				virtualtext = {
