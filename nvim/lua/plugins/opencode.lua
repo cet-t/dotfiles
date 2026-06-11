@@ -34,7 +34,7 @@ return {
 			local map = vim.keymap.set
 
 			map({ "n", "t" }, "<leader>ot", function()
-				require("opencode").toggle()
+				require("opencode").start()
 			end, { desc = "Toggle OpenCode" })
 
 			map({ "n", "x" }, "<leader>oa", function()

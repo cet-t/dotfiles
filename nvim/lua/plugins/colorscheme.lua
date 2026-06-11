@@ -1,10 +1,11 @@
 return {
 	{
-		"savq/melange-nvim",
+		"uhs-robert/oasis.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("melange")
+			require("oasis").setup({ style = "lagoon" })
+			vim.cmd.colorscheme("oasis")
 		end,
 	},
 }
