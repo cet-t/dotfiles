@@ -44,6 +44,10 @@ return {
 					"python",
 					"go",
 					"regex",
+					"javascript",
+					"typescript",
+					"tsx",
+					"jsdoc",
 				},
 				textobjects = {
 					select = {
