@@ -50,6 +50,7 @@ return {
 			{ "<leader>j", desc = "Toggle horizontal terminal" },
 			{ "<M-q>", desc = "Toggle Gemini CLI" },
 			{ "<leader>kt", desc = "Toggle Kilocode" },
+			{ "<leader>gg", desc = "Toggle gitui" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -95,6 +96,17 @@ return {
 			vim.keymap.set({ "n", "t" }, "<leader>kt", function()
 				kilocode_term:toggle(math.floor(vim.o.columns * 0.35))
 			end, { desc = "Toggle Kilocode" })
+
+			-- gitui
+			local gitui_term = Terminal:new({
+				cmd = "gitui",
+				direction = "float",
+				hidden = true,
+				float_opts = { border = "curved" },
+			})
+			vim.keymap.set({ "n", "t" }, "<leader>gg", function()
+				gitui_term:toggle()
+			end, { desc = "Toggle gitui" })
 		end,
 	},
 
