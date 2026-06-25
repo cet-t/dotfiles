@@ -102,7 +102,7 @@ return {
 				cmd = "gitui",
 				direction = "float",
 				hidden = true,
-				float_opts = { border = "curved" },
+				float_opts = { border = "curved", winblend = 15 },
 			})
 			vim.keymap.set({ "n", "t" }, "<leader>gg", function()
 				gitui_term:toggle()
