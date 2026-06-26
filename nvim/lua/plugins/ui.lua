@@ -22,9 +22,7 @@ return {
 		opts = {
 			options = {
 				diagnostics = "nvim_lsp",
-				offsets = {
-					{ filetype = "neo-tree", text = "Explorer", highlight = "Directory", text_align = "left" },
-				},
+				offsets = {},
 				show_buffer_close_icons = true,
 				separator_style = "slant",
 			},
@@ -32,24 +30,35 @@ return {
 	},
 
 	{
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"MunifTanjim/nui.nvim",
+		"stevearc/oil.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		keys = {
+			{ "-", "<cmd>Oil<CR>", desc = "Open parent directory" },
+			{ "<leader>e", "<cmd>Oil --float<CR>", desc = "Oil (float)" },
 		},
 		opts = {
-			window = {
-				width = 30,
-				mappings = {
-					["l"] = "open",
-					["h"] = "close_node",
-				},
+			default_file_explorer = true,
+			delete_to_trash = true,
+			skip_confirm_for_simple_edits = true,
+			view_options = {
+				show_hidden = true,
 			},
-			filesystem = {
-				filtered_items = { visible = false, hide_dotfiles = false },
-				follow_current_file = { enabled = true },
+			float = {
+				padding = 2,
+				max_width = 80,
+				max_height = 40,
+				win_options = { winblend = 10 },
+			},
+			keymaps = {
+				["<CR>"] = "actions.select",
+				["-"] = "actions.parent",
+				["_"] = "actions.open_cwd",
+				["`"] = "actions.cd",
+				["~"] = "actions.tcd",
+				["gs"] = "actions.change_sort",
+				["gx"] = "actions.open_external",
+				["g."] = "actions.toggle_hidden",
+				["g\\"] = "actions.toggle_trash",
 			},
 		},
 	},
