@@ -1,11 +1,11 @@
 return {
 	{
-		"uhs-robert/oasis.nvim",
+		"navarasu/onedark.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			require("oasis").setup({ style = "lagoon" })
-			vim.cmd.colorscheme("oasis")
+			require("onedark").setup({ style = "darker" })
+			vim.cmd.colorscheme("onedark")
 		end,
 	},
 }

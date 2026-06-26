@@ -3,26 +3,13 @@ return {
 		"nickjvandyke/opencode.nvim",
 		version = "*",
 		dependencies = {
-		{
-			"folke/snacks.nvim",
-			lazy = false,
-			priority = 1000,
-			opts = {
+			{
+				"folke/snacks.nvim",
+				lazy = false,
+				priority = 1000,
+				opts = {
 					input = {},
-					picker = {
-						actions = {
-							opencode_send = function(...)
-								return require("opencode").snacks_picker_send(...)
-							end,
-						},
-						win = {
-							input = {
-								keys = {
-									["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
-								},
-							},
-						},
-					},
+					picker = {},
 				},
 			},
 		},
@@ -34,11 +21,11 @@ return {
 			local map = vim.keymap.set
 
 			map({ "n", "t" }, "<leader>ot", function()
-				require("opencode").start()
+				require("opencode").ask()
 			end, { desc = "Toggle OpenCode" })
 
 			map({ "n", "x" }, "<leader>oa", function()
-				require("opencode").ask("@this: ", { submit = true })
+				require("opencode").prompt("@this: ")
 			end, { desc = "OpenCode: ask about selection" })
 
 			map({ "n", "x" }, "<leader>os", function()

@@ -142,5 +142,22 @@ return {
 				height = 0.8,
 			},
 		},
+		config = function(_, opts)
+			require("claude-code").setup(opts)
+			-- Semi-transparent float: initial open
+			vim.api.nvim_create_autocmd("TermOpen", {
+				pattern = "*claude*",
+				callback = function()
+					vim.wo.winblend = 10
+				end,
+			})
+			-- Semi-transparent float: re-show existing buffer
+			vim.api.nvim_create_autocmd("BufWinEnter", {
+				pattern = "claude-code*",
+				callback = function()
+					vim.wo.winblend = 10
+				end,
+			})
+		end,
 	},
 }
