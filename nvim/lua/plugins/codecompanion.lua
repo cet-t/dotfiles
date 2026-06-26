@@ -15,9 +15,7 @@ return {
 			{ "<leader>ab", "ggVG:CodeCompanionChat Add<CR>", desc = "AI Add buffer to chat", mode = { "n" } },
 		},
 		opts = {
-			opts = {
-				language = "Japanese",
-			},
+			opts = { language = "Japanese" },
 			adapters = {
 				http = {
 					gemini = function()
@@ -27,7 +25,6 @@ return {
 								model = {
 									default = "gemini-3-flash-preview",
 									choices = {
-										"gemini-3-flash-preview",
 										"gemini-3.1-flash-lite",
 										"gemini-3.5-flash",
 										"gemini-3.1-pro-preview",
@@ -50,45 +47,39 @@ return {
 							},
 						})
 					end,
+					sakana = function()
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							env = {
+								api_key = "SAKANA_API_KEY",
+								url = "https://api.sakana.ai",
+							},
+							schema = {
+								model = {
+									default = "fugu",
+									choices = {
+										"fugu",
+										-- "fugu-ultra"
+									},
+								},
+							},
+						})
+					end,
 				},
 			},
 			strategies = {
 				chat = {
-					adapter = "xai",
+					adapter = "sakana",
 					opts = {
 						system_prompt = function()
-							return "Always respond in Japanese."
+							return ""
 						end,
 					},
 					slash_commands = {
-						["file"] = { opts = { provider = "telescope" } },
-					},
-					slash_commands = {
-						["buffer"] = {
-							opts = {
-								provider = "snacks",
-							},
-						},
-						["file"] = {
-							opts = {
-								provider = "snacks",
-							},
-						},
-						["help"] = {
-							opts = {
-								provider = "snacks",
-							},
-						},
-						["symbols"] = {
-							opts = {
-								provider = "snacks",
-							},
-						},
-						["workspace"] = {
-							opts = {
-								provider = "snacks",
-							},
-						},
+						["buffer"] = { opts = { provider = "snacks" } },
+						["file"] = { opts = { provider = "snacks" } },
+						["help"] = { opts = { provider = "snacks" } },
+						["symbols"] = { opts = { provider = "snacks" } },
+						["workspace"] = { opts = { provider = "snacks" } },
 					},
 				},
 				inline = { adapter = "gemini" },
