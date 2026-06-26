@@ -152,8 +152,15 @@ return {
 						end,
 					},
 					win = {
-						keys = {
-							["<c-d>"] = { "delete_session", mode = { "i", "n" }, desc = "セッション削除" },
+						input = {
+							keys = {
+								["<c-x>"] = { "delete_session", mode = { "i", "n" }, desc = "セッション削除" },
+							},
+						},
+						list = {
+							keys = {
+								["<c-x>"] = { "delete_session", desc = "セッション削除" },
+							},
 						},
 					},
 				})
