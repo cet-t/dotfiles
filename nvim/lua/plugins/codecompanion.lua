@@ -140,16 +140,16 @@ return {
 					title = "Saved CodeCompanion Sessions",
 					cwd = dir,
 					actions = {
-						delete_session = {
-							action = function(picker)
-								local item = picker:current()
-								if item and item.file then
-									os.remove(item.file)
+						delete_session = function(picker, item)
+							if item then
+								local path = Snacks.picker.util.path(item)
+								if path then
+									os.remove(path)
 									picker:refresh()
-									vim.notify("削除: " .. vim.fn.fnamemodify(item.file, ":t"), vim.log.levels.INFO)
+									vim.notify("削除: " .. vim.fn.fnamemodify(path, ":t"), vim.log.levels.INFO)
 								end
-							end,
-						},
+							end
+						end,
 					},
 					win = {
 						keys = {
