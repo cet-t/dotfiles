@@ -83,17 +83,9 @@ return {
 							["workspace"] = { opts = { provider = "snacks" } },
 							["model"] = {
 								description = "モデルを切り替える",
-								callback = {
-									new = function(args)
-										return setmetatable({ Chat = args.Chat }, {
-											__index = {
-												execute = function(self)
-													require("codecompanion.interactions.chat.keymaps.change_adapter").select_model(self.Chat)
-												end,
-											},
-										})
-									end,
-								},
+								callback = function(chat)
+									require("codecompanion.interactions.chat.keymaps.change_adapter").select_model(chat)
+								end,
 							},
 						},
 					},
