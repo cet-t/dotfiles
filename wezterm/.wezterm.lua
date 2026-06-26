@@ -2,11 +2,11 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 -- font
-config.font = wezterm.font("Monofur Nerd Font Mono", { weight = "Regular" })
-config.font_size = 16.0
+config.font = wezterm.font("MonofurZenMaruGothic Regular", { weight = "Regular" })
+config.font_size = 12.0
 
--- color scheme (One Dark に合わせる)
-config.color_scheme = "One Dark (Gogh)"
+-- color scheme
+config.color_scheme = "Afterglow"
 
 -- window
 config.window_background_opacity = 1.0

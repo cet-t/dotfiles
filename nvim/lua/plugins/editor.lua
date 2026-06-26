@@ -27,10 +27,27 @@ return {
 		config = function()
 			require("nvim-treesitter").setup({
 				highlight = { enable = true },
-				indent   = { enable = true },
+				indent = { enable = true },
 				ensure_installed = {
-					"lua", "rust", "toml", "markdown", "markdown_inline",
-					"bash", "json", "yaml", "c", "cpp", "zig", "c_sharp", "python", "go",
+					"lua",
+					"rust",
+					"toml",
+					"markdown",
+					"markdown_inline",
+					"bash",
+					"json",
+					"yaml",
+					"c",
+					"cpp",
+					"zig",
+					"c_sharp",
+					"python",
+					"go",
+					"regex",
+					"javascript",
+					"typescript",
+					"tsx",
+					"jsdoc",
 				},
 				textobjects = {
 					select = {
@@ -52,14 +69,14 @@ return {
 					move = {
 						enable = true,
 						set_jumps = true,
-						goto_next_start     = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
-						goto_next_end       = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
+						goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
+						goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
 						goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
-						goto_previous_end   = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
+						goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
 					},
 					swap = {
 						enable = true,
-						swap_next     = { ["<leader>sn"] = "@parameter.inner" },
+						swap_next = { ["<leader>sn"] = "@parameter.inner" },
 						swap_previous = { ["<leader>sp"] = "@parameter.inner" },
 					},
 				},
@@ -91,7 +108,7 @@ return {
 		"terryma/vim-expand-region",
 		keys = {
 			{ "+", "<Plug>(expand_region_expand)", mode = { "n", "v" }, desc = "Expand region" },
-			{ "_", "<Plug>(expand_region_shrink)", mode = { "v" },      desc = "Shrink region" },
+			{ "_", "<Plug>(expand_region_shrink)", mode = { "v" }, desc = "Shrink region" },
 		},
 	},
 
@@ -110,7 +127,18 @@ return {
 				change = { text = "▎" },
 				delete = { text = "" },
 			},
+			current_line_blame = false,
 		},
+		keys = {
+			{ "<leader>gb", "<cmd>Gitsigns blame_line<CR>", desc = "Git blame line" },
+			{ "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<CR>", desc = "Toggle line blame" },
+		},
+	},
+
+	{
+		"diegok/live-autoread.nvim",
+		event = "VeryLazy",
+		opts = {},
 	},
 
 	{
@@ -137,10 +165,10 @@ return {
 			vim.keymap.set("n", "<leader>wl", s.resize_right, { desc = "Resize right" })
 			vim.keymap.set("n", "<leader>w=", "<C-w>=", { desc = "Equalize windows" })
 			-- window move
-			vim.keymap.set("n", "<C-Left>", "<C-w>h", { desc = "Move to left window" })
-			vim.keymap.set("n", "<C-Down>", "<C-w>j", { desc = "Move to lower window" })
-			vim.keymap.set("n", "<C-Up>", "<C-w>k", { desc = "Move to upper window" })
-			vim.keymap.set("n", "<C-Right>", "<C-w>l", { desc = "Move to right window" })
+			vim.keymap.set({ "n", "t" }, "<C-Left>", "<C-w>h", { desc = "Move to left window" })
+			vim.keymap.set({ "n", "t" }, "<C-Down>", "<C-w>j", { desc = "Move to lower window" })
+			vim.keymap.set({ "n", "t" }, "<C-Up>", "<C-w>k", { desc = "Move to upper window" })
+			vim.keymap.set({ "n", "t" }, "<C-Right>", "<C-w>l", { desc = "Move to right window" })
 		end,
 	},
 
@@ -167,12 +195,30 @@ return {
 		dependencies = { "kevinhwang91/promise-async" },
 		event = "BufReadPost",
 		keys = {
-			{ "zR", function() require("ufo").openAllFolds()  end, desc = "Open all folds" },
-			{ "zM", function() require("ufo").closeAllFolds() end, desc = "Close all folds" },
-			{ "zK", function()
-				local winid = require("ufo").peekFoldedLinesUnderCursor()
-				if not winid then vim.lsp.buf.hover() end
-			end, desc = "Peek fold" },
+			{
+				"zR",
+				function()
+					require("ufo").openAllFolds()
+				end,
+				desc = "Open all folds",
+			},
+			{
+				"zM",
+				function()
+					require("ufo").closeAllFolds()
+				end,
+				desc = "Close all folds",
+			},
+			{
+				"zK",
+				function()
+					local winid = require("ufo").peekFoldedLinesUnderCursor()
+					if not winid then
+						vim.lsp.buf.hover()
+					end
+				end,
+				desc = "Peek fold",
+			},
 		},
 		opts = {
 			provider_selector = function()

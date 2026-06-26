@@ -51,7 +51,9 @@ local cursor_hl_map = {
 local function hl_to_hex(group)
 	local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
 	local bg = hl.bg
-	if not bg then return nil end
+	if not bg then
+		return nil
+	end
 	return ("#%06x"):format(bg)
 end
 
@@ -64,7 +66,9 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 	callback = function()
 		local hl = cursor_hl_map[vim.fn.mode()] or "CursorNormal"
 		local color = hl_to_hex(hl)
-		if color then set_terminal_cursor(color) end
+		if color then
+			set_terminal_cursor(color)
+		end
 	end,
 })
 
@@ -74,14 +78,3 @@ vim.api.nvim_create_autocmd("VimLeave", {
 		io.flush()
 	end,
 })
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_set_hl(0, "CursorNormal",  { bg = "#98c379" }) -- green
-		vim.api.nvim_set_hl(0, "CursorInsert",  { bg = "#61afef" }) -- blue
-		vim.api.nvim_set_hl(0, "CursorVisual",  { bg = "#c678dd" }) -- pink
-		vim.api.nvim_set_hl(0, "CursorReplace", { bg = "#e06c75" }) -- red
-	end,
-})
-vim.cmd("doautocmd ColorScheme")

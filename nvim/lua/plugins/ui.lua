@@ -1,13 +1,11 @@
 return {
 	{
 		"DaikyXendo/nvim-material-icon",
-		lazy = true,
+		priority = 100,
 		config = function()
-			require("nvim-material-icon").setup()
-			require("nvim-web-devicons").setup({ override = require("nvim-material-icon").get_icons() })
+			require("nvim-web-devicons").setup()
 		end,
 	},
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
 
 	{
 		"famiu/bufdelete.nvim",
@@ -24,9 +22,7 @@ return {
 		opts = {
 			options = {
 				diagnostics = "nvim_lsp",
-				offsets = {
-					{ filetype = "neo-tree", text = "Explorer", highlight = "Directory", text_align = "left" },
-				},
+				offsets = {},
 				show_buffer_close_icons = true,
 				separator_style = "slant",
 			},
@@ -34,24 +30,35 @@ return {
 	},
 
 	{
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"MunifTanjim/nui.nvim",
+		"stevearc/oil.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		keys = {
+			{ "-", "<cmd>Oil<CR>", desc = "Open parent directory" },
+			{ "<leader>e", "<cmd>Oil --float<CR>", desc = "Oil (float)" },
 		},
 		opts = {
-			window = {
-				width = 30,
-				mappings = {
-					["l"] = "open",
-					["h"] = "close_node",
-				},
+			default_file_explorer = true,
+			delete_to_trash = true,
+			skip_confirm_for_simple_edits = true,
+			view_options = {
+				show_hidden = true,
 			},
-			filesystem = {
-				filtered_items = { visible = false, hide_dotfiles = false },
-				follow_current_file = { enabled = true },
+			float = {
+				padding = 2,
+				max_width = 80,
+				max_height = 40,
+				win_options = { winblend = 10 },
+			},
+			keymaps = {
+				["<CR>"] = "actions.select",
+				["-"] = "actions.parent",
+				["_"] = "actions.open_cwd",
+				["`"] = "actions.cd",
+				["~"] = "actions.tcd",
+				["gs"] = "actions.change_sort",
+				["gx"] = "actions.open_external",
+				["g."] = "actions.toggle_hidden",
+				["g\\"] = "actions.toggle_trash",
 			},
 		},
 	},
@@ -59,15 +66,62 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			options = {
-				theme = "onedark",
-				globalstatus = true,
-			},
-			sections = {
-				lualine_c = { { "filename", path = 1 } },
-			},
-		},
+		config = function()
+			local spinner_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+			local spinner_index = 1
+			local processing = false
+			local timer = nil
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "CodeCompanionRequestStarted",
+				callback = function()
+					processing = true
+					if not timer then
+						timer = vim.uv.new_timer()
+						timer:start(0, 100, vim.schedule_wrap(function()
+							spinner_index = (spinner_index % #spinner_frames) + 1
+							vim.cmd("redrawstatus")
+						end))
+					end
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "CodeCompanionRequestFinished",
+				callback = function()
+					processing = false
+					if timer then
+						timer:stop()
+						timer:close()
+						timer = nil
+					end
+					vim.cmd("redrawstatus")
+				end,
+			})
+
+			require("lualine").setup({
+				options = {
+					theme = "melange",
+					globalstatus = true,
+				},
+				sections = {
+					lualine_c = { { "filename", path = 1 } },
+					lualine_x = {
+						{
+							function()
+								if processing then
+									return spinner_frames[spinner_index] .. " AI"
+								end
+								return ""
+							end,
+						},
+						"encoding",
+						"fileformat",
+						"filetype",
+					},
+				},
+			})
+		end,
 	},
 
 	{

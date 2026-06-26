@@ -111,6 +111,7 @@ install.sh が自動でインストールしてくれる（apt / dnf / pacman �
 | akinsho/toggleterm.nvim      | ターミナル（フロート・下ペイン）                                               |
 | greggh/claude-code.nvim      | Claude Code 統合                                                               |
 | olimorris/codecompanion.nvim | ローカル LLM チャット・インライン編集                                          |
+| nickjvandyke/opencode.nvim   | OpenCode AI エージェント統合                                                   |
 | RaafatTurki/hex.nvim         | バイナリエディタ                                                               |
 | andweeb/presence.nvim        | Discord Rich Presence                                                          |
 
@@ -202,6 +203,19 @@ nvim
 | `<leader>ac` | Claude Code 起動              |
 | `<leader>ar` | 前のセッションを再開          |
 | `Alt+q`      | ウィンドウ表示 / 非表示トグル |
+
+### OpenCode
+
+| キー              | 動作                             |
+| ----------------- | -------------------------------- |
+| `<leader>ot`      | OpenCode トグル                  |
+| `<leader>oa`      | 選択範囲について質問             |
+| `<leader>os`      | プロンプト/コマンド選択          |
+| `<leader>on`      | 新規セッション                   |
+| `<leader>ou`      | アンドゥ                         |
+| `<leader>or`      | リドゥ                           |
+| `go{motion}`      | モーション範囲をコンテキスト追加 |
+| `<C-k>` / `<C-j>` | メッセージスクロール             |
 
 ### テキストオブジェクト
 

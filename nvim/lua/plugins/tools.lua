@@ -29,6 +29,10 @@ return {
 				python = { "ruff_format" },
 				yaml   = { "prettier" },
 				xml    = { "xmllint" },
+				javascript      = { "prettier" },
+				javascriptreact = { "prettier" },
+				typescript      = { "prettier" },
+				typescriptreact = { "prettier" },
 			},
 			format_on_save = {
 				timeout_ms = 3000,
@@ -45,6 +49,8 @@ return {
 			{ "<C-\\>", desc = "Toggle float terminal" },
 			{ "<leader>j", desc = "Toggle horizontal terminal" },
 			{ "<M-q>", desc = "Toggle Gemini CLI" },
+			{ "<leader>kt", desc = "Toggle Kilocode" },
+			{ "<leader>gg", desc = "Toggle gitui" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -63,11 +69,15 @@ return {
 				float_term:toggle()
 			end, { desc = "Toggle float terminal" })
 
-			-- horizontal bottom pane
-			local horiz_term = Terminal:new({ direction = "horizontal", size = 15, hidden = true })
+			-- floating terminal (semi-transparent)
+			local horiz_term = Terminal:new({
+				direction = "float",
+				hidden = true,
+				float_opts = { border = "curved", winblend = 15 },
+			})
 			vim.keymap.set({ "n", "t" }, "<leader>j", function()
 				horiz_term:toggle()
-			end, { desc = "Toggle horizontal terminal" })
+			end, { desc = "Toggle float terminal" })
 
 			-- Gemini CLI
 			local gemini_term = Terminal:new({
@@ -79,6 +89,28 @@ return {
 			vim.keymap.set({ "n", "t" }, "<M-q>", function()
 				gemini_term:toggle()
 			end, { desc = "Toggle Gemini CLI" })
+
+			-- Kilocode
+			local kilocode_term = Terminal:new({
+				cmd = "kilocode",
+				direction = "vertical",
+				size = math.floor(vim.o.columns * 0.35),
+				hidden = true,
+			})
+			vim.keymap.set({ "n", "t" }, "<leader>kt", function()
+				kilocode_term:toggle(math.floor(vim.o.columns * 0.35))
+			end, { desc = "Toggle Kilocode" })
+
+			-- gitui
+			local gitui_term = Terminal:new({
+				cmd = "gitui",
+				direction = "float",
+				hidden = true,
+				float_opts = { border = "curved", winblend = 15 },
+			})
+			vim.keymap.set({ "n", "t" }, "<leader>gg", function()
+				gitui_term:toggle()
+			end, { desc = "Toggle gitui" })
 		end,
 	},
 
@@ -110,5 +142,22 @@ return {
 				height = 0.8,
 			},
 		},
+		config = function(_, opts)
+			require("claude-code").setup(opts)
+			-- Semi-transparent float: initial open
+			vim.api.nvim_create_autocmd("TermOpen", {
+				pattern = "*claude*",
+				callback = function()
+					vim.wo.winblend = 10
+				end,
+			})
+			-- Semi-transparent float: re-show existing buffer
+			vim.api.nvim_create_autocmd("BufWinEnter", {
+				pattern = "claude-code*",
+				callback = function()
+					vim.wo.winblend = 10
+				end,
+			})
+		end,
 	},
 }

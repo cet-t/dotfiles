@@ -88,6 +88,79 @@ return {
 				})
 				vim.lsp.enable("pyright")
 			end
+
+			-- TypeScript / JavaScript
+			if vim.fn.executable("typescript-language-server") == 1 then
+				vim.lsp.config("ts_ls", {
+					on_attach = on_attach,
+					capabilities = caps,
+					filetypes = {
+						"javascript",
+						"javascriptreact",
+						"javascript.jsx",
+						"typescript",
+						"typescriptreact",
+						"typescript.tsx",
+					},
+					root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+					settings = {
+						typescript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "literals",
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+						javascript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "literals",
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+					},
+				})
+				vim.lsp.enable("ts_ls")
+			end
+
+			-- ESLint
+			if vim.fn.executable("vscode-eslint-language-server") == 1 then
+				vim.lsp.config("eslint", {
+					on_attach = function(client, bufnr)
+						on_attach(client, bufnr)
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = bufnr,
+							command = "EslintFixAll",
+						})
+					end,
+					capabilities = caps,
+					filetypes = {
+						"javascript",
+						"javascriptreact",
+						"javascript.jsx",
+						"typescript",
+						"typescriptreact",
+						"typescript.tsx",
+					},
+					root_markers = {
+						".eslintrc",
+						".eslintrc.js",
+						".eslintrc.cjs",
+						".eslintrc.json",
+						"eslint.config.js",
+						"eslint.config.mjs",
+						"package.json",
+						".git",
+					},
+				})
+				vim.lsp.enable("eslint")
+			end
 		end,
 	},
 }
