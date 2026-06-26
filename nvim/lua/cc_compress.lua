@@ -3,9 +3,13 @@
 local M = {}
 
 local defaults = {
-	max_messages = 20,   -- system 以外の最大保持メッセージ数
-	max_chars    = 3000, -- 1 メッセージの最大文字数
-	tool_max_chars = 500, -- ツール出力の最大文字数
+	max_messages = 20,        -- system 以外の最大保持メッセージ数
+	limits = {
+		user      = math.huge, -- コード等が含まれるため切らない
+		assistant = 5000,      -- 説明文は圧縮対象
+		tool      = 500,       -- ツール出力は厳しく切る
+		system    = math.huge, -- システムプロンプトは保護
+	},
 }
 
 ---@param content string
@@ -19,10 +23,10 @@ end
 ---@param messages table
 ---@param opts table
 local function compress(messages, opts)
-	-- 1. 長いメッセージを切り詰め
+	-- 1. ロール別の制限で切り詰め
 	for _, msg in ipairs(messages) do
 		if type(msg.content) == "string" then
-			local limit = (msg.role == "tool") and opts.tool_max_chars or opts.max_chars
+			local limit = (opts.limits and opts.limits[msg.role]) or math.huge
 			msg.content = truncate(msg.content, limit)
 		end
 	end

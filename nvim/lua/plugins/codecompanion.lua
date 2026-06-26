@@ -93,9 +93,13 @@ return {
 					compress = {
 						callback = require("cc_compress"),
 						opts = {
-							max_messages   = 20,
-							max_chars      = 3000,
-							tool_max_chars = 500,
+							max_messages = 20,
+							limits = {
+								user      = math.huge,
+								assistant = 5000,
+								tool      = 500,
+								system    = math.huge,
+							},
 						},
 					},
 				},
