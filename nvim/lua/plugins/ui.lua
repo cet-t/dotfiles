@@ -66,15 +66,62 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			options = {
-				theme = "melange",
-				globalstatus = true,
-			},
-			sections = {
-				lualine_c = { { "filename", path = 1 } },
-			},
-		},
+		config = function()
+			local spinner_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+			local spinner_index = 1
+			local processing = false
+			local timer = nil
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "CodeCompanionRequestStarted",
+				callback = function()
+					processing = true
+					if not timer then
+						timer = vim.uv.new_timer()
+						timer:start(0, 100, vim.schedule_wrap(function()
+							spinner_index = (spinner_index % #spinner_frames) + 1
+							vim.cmd("redrawstatus")
+						end))
+					end
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "CodeCompanionRequestFinished",
+				callback = function()
+					processing = false
+					if timer then
+						timer:stop()
+						timer:close()
+						timer = nil
+					end
+					vim.cmd("redrawstatus")
+				end,
+			})
+
+			require("lualine").setup({
+				options = {
+					theme = "melange",
+					globalstatus = true,
+				},
+				sections = {
+					lualine_c = { { "filename", path = 1 } },
+					lualine_x = {
+						{
+							function()
+								if processing then
+									return spinner_frames[spinner_index] .. " AI"
+								end
+								return ""
+							end,
+						},
+						"encoding",
+						"fileformat",
+						"filetype",
+					},
+				},
+			})
+		end,
 	},
 
 	{
