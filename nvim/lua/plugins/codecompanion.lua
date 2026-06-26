@@ -19,6 +19,51 @@ return {
 				opts = { language = "Japanese" },
 				adapters = {
 					http = {
+						openrouter = function()
+							return require("codecompanion.adapters").extend("openai_compatible", {
+								env = { api_key = "OPENROUTER_API_KEY" },
+								schema = {
+									model = {
+										default = "deepseek-ai/DeepSeek-V4-Flash",
+										choices = {
+											-- deepinfra
+											"deepseek-ai/DeepSeek-V4-Flash", -- 0.10 / 0.20
+											"deepseek-ai/DeepSeek-V4-Pro", -- 1.30 / 2.60
+											"XiaomiMiMo/MiMo-V2.5", -- 0.40 / 2.00
+											"XiaomiMiMo/MiMo-V2.5-Pro", -- 1.00 / 3.00
+											"zai-org/GLM-5.2", -- 0.95 / 3.00
+											"moonshotai/Kimi-K2.7-Code", -- 0.74 / 3.50
+											"MiniMaxAI/MiniMax-M2.7", -- 0.25 / 1.00
+
+											-- google
+											"google/gemini-2.5-flash-lite",
+											"google/gemini-3.1-flash-lite",
+											"google/gemini-3.1-pro-preview",
+											"google/gemini-3.5-flash",
+
+											-- stepfun
+											"stepfun/step-3.7-flash",
+
+											-- xiaomi
+											"xiaomi/mimo-v2.5",
+											"xiaomi/mimo-v2.5-pro",
+
+											-- deepseek
+											"deepseek/deepseek-v4-flash",
+											"deepseek/deepseek-v4-pro",
+
+											-- mistral
+											-- xai
+											"x-ai/grok-build-0.1",
+											"x-ai/grok-4.3",
+
+											-- zai
+											"z-ai/glm-5.2",
+										},
+									},
+								},
+							})
+						end,
 						gemini = function()
 							return require("codecompanion.adapters").extend("gemini", {
 								env = { api_key = "GEMINI_API_KEY" },
@@ -59,7 +104,7 @@ return {
 										default = "fugu",
 										choices = {
 											"fugu",
-											-- "fugu-ultra"
+											"fugu-ultra",
 										},
 									},
 								},
@@ -101,10 +146,10 @@ return {
 						opts = {
 							max_messages = 20,
 							limits = {
-								user      = math.huge,
+								user = math.huge,
 								assistant = 5000,
-								tool      = 500,
-								system    = math.huge,
+								tool = 500,
+								system = math.huge,
 							},
 						},
 					},
@@ -139,12 +184,14 @@ return {
 					return require("codecompanion").buf_get_chat(0)
 				end)
 				if not ok or chat == nil then
-					vim.notify("CodeCompanionSave: チャットバッファ以外では使えません", vim.log.levels.ERROR)
+					vim.notify(
+						"CodeCompanionSave: チャットバッファ以外では使えません",
+						vim.log.levels.ERROR
+					)
 					return
 				end
 
-				local name = #opts.fargs > 0
-					and table.concat(opts.fargs, "-") .. ".md"
+				local name = #opts.fargs > 0 and table.concat(opts.fargs, "-") .. ".md"
 					or os.date("%Y%m%d-%H%M%S") .. ".md"
 
 				local path = Path:new(save_dir, name)
