@@ -69,11 +69,15 @@ return {
 				float_term:toggle()
 			end, { desc = "Toggle float terminal" })
 
-			-- horizontal bottom pane
-			local horiz_term = Terminal:new({ direction = "horizontal", size = 15, hidden = true })
+			-- floating terminal (semi-transparent)
+			local horiz_term = Terminal:new({
+				direction = "float",
+				hidden = true,
+				float_opts = { border = "curved", winblend = 15 },
+			})
 			vim.keymap.set({ "n", "t" }, "<leader>j", function()
 				horiz_term:toggle()
-			end, { desc = "Toggle horizontal terminal" })
+			end, { desc = "Toggle float terminal" })
 
 			-- Gemini CLI
 			local gemini_term = Terminal:new({
