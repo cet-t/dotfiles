@@ -89,6 +89,16 @@ return {
 				rules = {
 					default = { files = {} },
 				},
+				extensions = {
+					compress = {
+						callback = require("cc_compress"),
+						opts = {
+							max_messages   = 20,
+							max_chars      = 3000,
+							tool_max_chars = 500,
+						},
+					},
+				},
 				saved_chats_dir = vim.fn.stdpath("data") .. "/codecompanion/chats",
 				display = {
 					chat = {
