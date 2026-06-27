@@ -1,6 +1,6 @@
 # dotfiles
 
-Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
+Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python / Go / TypeScript 開発環境。
 
 ## 構成
 
@@ -12,43 +12,47 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python 開発環境。
 | LSP / Zig              | nvim-lspconfig + zls                                                          |
 | LSP / C#               | nvim-lspconfig + csharp-ls                                                    |
 | LSP / Python           | nvim-lspconfig + pyright                                                      |
-| 補完                   | nvim-cmp + LuaSnip + minuet-ai (Gemini)                                       |
-| AI アシスタント        | avante.nvim (Gemini 2.5 Pro)                                                  |
+| LSP / Go               | nvim-lspconfig + gopls                                                        |
+| LSP / TypeScript       | nvim-lspconfig + ts_ls                                                        |
+| 補完                   | nvim-cmp + LuaSnip + minuet-ai (Codestral)                                    |
+| AI チャット            | codecompanion.nvim（OpenRouter / Gemini / xAI / Sakana AI）                   |
+| AI エージェント        | opencode.nvim                                                                 |
 | ファジーファインダー   | Telescope                                                                     |
-| ファイルツリー         | neo-tree                                                                      |
-| フォーマッタ           | conform.nvim (rustfmt, clang-format, zigfmt, stylua, prettier, ruff)          |
+| ファイルエクスプローラ | oil.nvim                                                                      |
+| フォーマッタ           | conform.nvim (rustfmt, clang-format, zigfmt, stylua, prettier, ruff, goimports) |
 | 診断                   | tiny-inline-diagnostic + Trouble                                              |
 | スクロールバー         | satellite.nvim（git変更・診断・検索マーカー）                                 |
 | 折り畳み               | nvim-ufo（LSP / treesitter ベース）                                           |
 | テキストオブジェクト   | nvim-treesitter-textobjects + targets.vim + nvim-surround + vim-expand-region |
 | コンテキスト表示       | nvim-treesitter-context                                                       |
-| AI アシスト            | codecompanion.nvim（ローカル LLM / LM Studio 対応）                           |
+| ターミナル             | toggleterm.nvim（gitui / Gemini CLI / Kilocode 統合）                         |
 | バイナリエディタ       | hex.nvim                                                                      |
-| ターミナル             | toggleterm.nvim                                                               |
-| ファイルアイコン       | nvim-material-icon                                                            |
-| テーマ                 | One Dark                                                                      |
-| シェル                 | PowerShell (Windows) / zsh + zinit (Linux) + Starship                         |
+| テーマ                 | One Dark (darker)                                                             |
+| シェル                 | PowerShell (Windows) / Nushell / zsh + zinit (Linux) + Starship               |
 | ターミナルエミュレータ | Alacritty / WezTerm / Windows Terminal                                        |
 
 ## 必要なもの
 
 ### Windows
 
-| ツール           | インストール                                          |
-| ---------------- | ----------------------------------------------------- |
-| Neovim >= 0.12   | `scoop install neovim`                                |
-| Git              | `scoop install git`                                   |
-| Rust / rustup    | [rustup.rs](https://rustup.rs)                        |
-| Node.js          | `scoop install nodejs`                                |
-| LLVM (clangd)    | `scoop install llvm`                                  |
-| Zig              | `scoop install zig`                                   |
-| zls              | `scoop install zls`                                   |
-| Python / pyright | `npm install -g pyright` または `pip install pyright` |
-| ruff             | `scoop install ruff` または `pip install ruff`        |
-| WezTerm          | `scoop install extras/wezterm`                        |
-| Alacritty        | `scoop install alacritty`                             |
-| taplo (TOML fmt) | `scoop install taplo`                                 |
-| stylua (Lua fmt) | `scoop install stylua`                                |
+| ツール             | インストール                                          |
+| ------------------ | ----------------------------------------------------- |
+| Neovim >= 0.12     | `scoop install neovim`                                |
+| Git                | `scoop install git`                                   |
+| Rust / rustup      | [rustup.rs](https://rustup.rs)                        |
+| Node.js            | `scoop install nodejs`                                |
+| LLVM (clangd)      | `scoop install llvm`                                  |
+| Zig                | `scoop install zig`                                   |
+| zls                | `scoop install zls`                                   |
+| Go / gopls         | `scoop install go` + `go install golang.org/x/tools/gopls@latest` |
+| Python / pyright   | `npm install -g pyright` または `pip install pyright` |
+| ruff               | `scoop install ruff` または `pip install ruff`        |
+| WezTerm            | `scoop install extras/wezterm`                        |
+| Alacritty          | `scoop install alacritty`                             |
+| taplo (TOML fmt)   | `scoop install taplo`                                 |
+| stylua (Lua fmt)   | `scoop install stylua`                                |
+| gitui              | `scoop install gitui`                                 |
+| Nushell            | `scoop install nu`                                    |
 
 ### Linux
 
@@ -62,8 +66,8 @@ install.sh が自動でインストールしてくれる（apt / dnf / pacman �
 | ----------------------------------- | ----------------------------------------- |
 | navarasu/onedark.nvim               | カラースキーム（darker）                  |
 | akinsho/bufferline.nvim             | タブバー                                  |
-| nvim-lualine/lualine.nvim           | ステータスバー                            |
-| nvim-neo-tree/neo-tree.nvim         | ファイルツリー                            |
+| nvim-lualine/lualine.nvim           | ステータスバー（AI spinner 付き）         |
+| stevearc/oil.nvim                   | ファイルエクスプローラ（バッファ風操作）  |
 | lukas-reineke/indent-blankline.nvim | インデントガイド                          |
 | folke/noice.nvim                    | UI 強化（コマンド・通知・ホバー）         |
 | lewis6991/satellite.nvim            | スクロールバー（git・診断・検索マーカー） |
@@ -90,30 +94,30 @@ install.sh が自動でインストールしてくれる（apt / dnf / pacman �
 | folke/trouble.nvim                          | 診断パネル                                   |
 | MeanderingProgrammer/render-markdown.nvim   | Markdown インラインレンダリング              |
 | iamcco/markdown-preview.nvim                | Markdown ブラウザプレビュー                  |
+| diegok/live-autoread.nvim                   | ファイル変更の自動リロード                   |
 
 ### LSP / 補完
 
-| プラグイン             | 説明                                            |
-| ---------------------- | ----------------------------------------------- |
-| neovim/nvim-lspconfig  | LSP クライアント設定（C++ / Zig / C# / Python） |
-| mrcjkb/rustaceanvim    | Rust LSP（rust-analyzer）                       |
-| hrsh7th/nvim-cmp       | 補完エンジン                                    |
-| L3MON4D3/LuaSnip       | スニペット                                      |
-| zbirenbaum/copilot.lua | GitHub Copilot インライン補完                   |
-| zbirenbaum/copilot-cmp | Copilot を nvim-cmp に統合                      |
-| saecki/crates.nvim     | Cargo.toml の依存バージョン補完                 |
+| プラグイン                  | 説明                                                          |
+| --------------------------- | ------------------------------------------------------------- |
+| neovim/nvim-lspconfig       | LSP クライアント設定（C++ / Zig / C# / Python / Go / TS）    |
+| mrcjkb/rustaceanvim         | Rust LSP（rust-analyzer）                                     |
+| hrsh7th/nvim-cmp            | 補完エンジン                                                  |
+| L3MON4D3/LuaSnip            | スニペット                                                    |
+| milanglacier/minuet-ai.nvim | AI インライン補完（Codestral）                                |
+| saecki/crates.nvim          | Cargo.toml の依存バージョン補完                               |
 
 ### ツール
 
-| プラグイン                   | 説明                                                                           |
-| ---------------------------- | ------------------------------------------------------------------------------ |
-| stevearc/conform.nvim        | フォーマッタ（rustfmt / clangd / zigfmt / stylua / prettier / ruff / xmllint） |
-| akinsho/toggleterm.nvim      | ターミナル（フロート・下ペイン）                                               |
-| greggh/claude-code.nvim      | Claude Code 統合                                                               |
-| olimorris/codecompanion.nvim | ローカル LLM チャット・インライン編集                                          |
-| nickjvandyke/opencode.nvim   | OpenCode AI エージェント統合                                                   |
-| RaafatTurki/hex.nvim         | バイナリエディタ                                                               |
-| andweeb/presence.nvim        | Discord Rich Presence                                                          |
+| プラグイン                   | 説明                                                                             |
+| ---------------------------- | -------------------------------------------------------------------------------- |
+| stevearc/conform.nvim        | フォーマッタ（rustfmt / clang-format / zigfmt / stylua / prettier / ruff / goimports） |
+| akinsho/toggleterm.nvim      | ターミナル（フロート・gitui・Gemini CLI・Kilocode）                              |
+| greggh/claude-code.nvim      | Claude Code 統合                                                                 |
+| olimorris/codecompanion.nvim | AI チャット・インライン編集・セッション管理・コンテキスト圧縮                   |
+| nickjvandyke/opencode.nvim   | OpenCode AI エージェント統合                                                     |
+| RaafatTurki/hex.nvim         | バイナリエディタ                                                                 |
+| andweeb/presence.nvim        | Discord Rich Presence                                                            |
 
 ## セットアップ
 
@@ -147,16 +151,16 @@ nvim
 
 ### 移動・ナビゲーション
 
-| キー              | 動作                                        |
-| ----------------- | ------------------------------------------- |
-| `<C-n>`           | ファイルツリー toggle                       |
-| `<leader>e`       | ファイルツリーにフォーカス / エディタに戻る |
-| `<leader>ff`      | ファイル検索                                |
-| `<leader>fg`      | 文字列検索（grep）                          |
-| `<leader>fb`      | バッファ一覧                                |
-| `<S-h>` / `<S-l>` | 前 / 次のバッファ                           |
-| `<leader>q`       | バッファを閉じる（レイアウト維持）          |
-| `<C-←↑↓→>`        | ウィンドウ間移動                            |
+| キー              | 動作                                 |
+| ----------------- | ------------------------------------ |
+| `-`               | 親ディレクトリを oil.nvim で開く     |
+| `<leader>e`       | oil.nvim フロートで開く              |
+| `<leader>ff`      | ファイル検索                         |
+| `<leader>fg`      | 文字列検索（grep）                   |
+| `<leader>fb`      | バッファ一覧                         |
+| `<S-h>` / `<S-l>` | 前 / 次のバッファ                    |
+| `<leader>q`       | バッファを閉じる（レイアウト維持）   |
+| `<C-←↑↓→>`        | ウィンドウ間移動                     |
 
 ### LSP
 
@@ -183,38 +187,40 @@ nvim
 
 ### ターミナル
 
-| キー        | 動作                            |
-| ----------- | ------------------------------- |
-| `<C-\>`     | フローティングターミナル toggle |
-| `<leader>j` | 下ペインターミナル toggle       |
+| キー          | 動作                              |
+| ------------- | --------------------------------- |
+| `<C-\>`       | フローティングターミナル toggle   |
+| `<leader>j`   | 半透明フローティングターミナル toggle |
+| `<leader>gg`  | gitui フロート toggle             |
+| `<M-q>`       | Gemini CLI フロート toggle        |
+| `<leader>kt`  | Kilocode 縦分割 toggle            |
 
-### Copilot
+### Minuet (AI インライン補完)
 
-| キー              | 動作                 |
-| ----------------- | -------------------- |
-| `Alt+l`           | インライン補完を確定 |
-| `Alt+w`           | 単語単位で確定       |
-| `Alt+]` / `Alt+[` | 次 / 前の候補        |
+| キー               | 動作                 |
+| ------------------ | -------------------- |
+| `<M-l>`            | インライン補完を確定 |
+| `<M-w>`            | 単語単位で確定       |
+| `<M-]>` / `<M-[>` | 次 / 前の候補        |
 
 ### Claude Code
 
-| キー         | 動作                          |
-| ------------ | ----------------------------- |
-| `<leader>ac` | Claude Code 起動              |
-| `<leader>ar` | 前のセッションを再開          |
-| `Alt+q`      | ウィンドウ表示 / 非表示トグル |
+| キー         | 動作                 |
+| ------------ | -------------------- |
+| `<M-w>`      | Claude Code 起動     |
+| `<leader>ar` | 前のセッションを再開 |
 
 ### OpenCode
 
-| キー              | 動作                             |
-| ----------------- | -------------------------------- |
-| `<leader>ot`      | OpenCode トグル                  |
-| `<leader>oa`      | 選択範囲について質問             |
-| `<leader>os`      | プロンプト/コマンド選択          |
-| `<leader>on`      | 新規セッション                   |
-| `<leader>ou`      | アンドゥ                         |
-| `<leader>or`      | リドゥ                           |
-| `go{motion}`      | モーション範囲をコンテキスト追加 |
+| キー               | 動作                             |
+| ------------------ | -------------------------------- |
+| `<leader>ot`       | OpenCode トグル                  |
+| `<leader>oa`       | 選択範囲について質問             |
+| `<leader>os`       | プロンプト/コマンド選択          |
+| `<leader>on`       | 新規セッション                   |
+| `<leader>ou`       | アンドゥ                         |
+| `<leader>or`       | リドゥ                           |
+| `go{motion}`       | モーション範囲をコンテキスト追加 |
 | `<C-k>` / `<C-j>` | メッセージスクロール             |
 
 ### テキストオブジェクト
@@ -233,8 +239,11 @@ nvim
 
 ### AI アシスト（codecompanion）
 
-| キー         | 動作                       |
-| ------------ | -------------------------- |
-| `<leader>ai` | チャットパネル toggle      |
-| `<leader>aa` | アクション一覧             |
-| `<leader>ae` | インライン編集（選択範囲） |
+| キー         | 動作                         |
+| ------------ | ---------------------------- |
+| `<leader>ai` | チャットパネル toggle        |
+| `<leader>aa` | アクション一覧               |
+| `<leader>ae` | インライン編集（選択範囲）   |
+| `<leader>as` | チャットセッションを保存     |
+| `<leader>al` | チャットセッションを読み込む |
+| `<leader>ab` | バッファ全体をチャットに追加 |
