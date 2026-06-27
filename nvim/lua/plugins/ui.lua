@@ -31,7 +31,12 @@ return {
 
 	{
 		"stevearc/oil.nvim",
+		lazy = false,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		init = function()
+			vim.g.loaded_netrw = 1
+			vim.g.loaded_netrwPlugin = 1
+		end,
 		keys = {
 			{ "-", "<cmd>Oil<CR>", desc = "Open parent directory" },
 			{ "<leader>e", "<cmd>Oil --float<CR>", desc = "Oil (float)" },
