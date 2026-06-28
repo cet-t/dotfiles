@@ -151,6 +151,20 @@ return {
 	},
 
 	{
+		"rcarriga/nvim-notify",
+		opts = {
+			max_width = 40,
+			max_height = 5,
+			background_colour = "#000000",
+			render = "compact",
+			stages = "fade",
+		},
+		init = function()
+			vim.opt.termguicolors = true
+		end,
+	},
+
+	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		dependencies = {
