@@ -24,7 +24,7 @@ return {
 				diagnostics = "nvim_lsp",
 				offsets = {},
 				show_buffer_close_icons = true,
-				separator_style = "slant",
+				separator_style = "thin",
 			},
 		},
 	},
@@ -108,8 +108,6 @@ return {
 				options = {
 					theme = "auto",
 					globalstatus = true,
-					section_separators = "",
-					component_separators = "",
 				},
 				sections = {
 					lualine_c = { { "filename", path = 1 } },
