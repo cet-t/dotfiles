@@ -155,12 +155,17 @@ return {
 		opts = {
 			max_width = 40,
 			max_height = 5,
-			background_colour = "#000000",
 			render = "compact",
 			stages = "fade",
 		},
-		init = function()
-			vim.opt.termguicolors = true
+		config = function(_, opts)
+			require("notify").setup(opts)
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "notify",
+				callback = function()
+					vim.wo.winblend = 20
+				end,
+			})
 		end,
 	},
 
