@@ -26,6 +26,21 @@ return {
 				show_buffer_close_icons = true,
 				separator_style = "slant",
 			},
+			highlights = {
+				fill = { bg = "NONE" },
+				background = { bg = "NONE" },
+				tab = { bg = "NONE" },
+				tab_selected = { bg = "NONE" },
+				tab_separator = { bg = "NONE" },
+				tab_separator_selected = { bg = "NONE" },
+				buffer_visible = { bg = "NONE" },
+				buffer_selected = { bg = "NONE" },
+				separator = { bg = "NONE" },
+				separator_selected = { bg = "NONE" },
+				separator_visible = { bg = "NONE" },
+				indicator_selected = { bg = "NONE" },
+				offset_separator = { bg = "NONE" },
+			},
 		},
 	},
 
@@ -106,8 +121,10 @@ return {
 
 			require("lualine").setup({
 				options = {
-					theme = "melange",
+					theme = "auto",
 					globalstatus = true,
+					section_separators = "",
+					component_separators = "",
 				},
 				sections = {
 					lualine_c = { { "filename", path = 1 } },
