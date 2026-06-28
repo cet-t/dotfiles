@@ -96,7 +96,7 @@ install.sh が自動でインストールしてくれる（apt / dnf / pacman �
 | folke/trouble.nvim                          | 診断パネル                                   |
 | MeanderingProgrammer/render-markdown.nvim   | Markdown インラインレンダリング              |
 | iamcco/markdown-preview.nvim                | Markdown ブラウザプレビュー                  |
-| diegok/live-autoread.nvim                   | ファイル変更の自動リロード                   |
+| diogo464/hotreload.nvim                     | ファイル変更の自動リロード                   |
 
 ### LSP / 補完
 
