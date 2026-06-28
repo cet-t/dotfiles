@@ -271,8 +271,8 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		opts = {
 			preview = {
-				modes = { "n", "no", "c", "v" },
-				hybrid_modes = { "v" },
+				modes = { "n", "no", "c" },
+				hybrid_modes = { "i", "v" },
 			},
 		},
 	},
