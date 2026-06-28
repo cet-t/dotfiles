@@ -135,9 +135,8 @@ return {
 	},
 
 	{
-		"diegok/live-autoread.nvim",
-		event = "VeryLazy",
-		opts = {},
+		"diogo464/hotreload.nvim",
+		opts = {}, -- Uses fs_event watchers by default
 	},
 
 	{
