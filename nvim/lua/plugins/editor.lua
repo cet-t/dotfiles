@@ -272,49 +272,28 @@ return {
 		opts = {
 			heading = {
 				sign = false,
-				icons = { "󰉫 ", "󰉬 ", "󰉭 ", "󰉮 ", "󰉯 ", "󰉰 " },
-				backgrounds = {
-					"RenderMarkdownH1Bg",
-					"RenderMarkdownH2Bg",
-					"RenderMarkdownH3Bg",
-					"RenderMarkdownH4Bg",
-					"RenderMarkdownH5Bg",
-					"RenderMarkdownH6Bg",
-				},
+				icons = { "# ", "## ", "### ", "#### ", "##### ", "###### " },
+				backgrounds = {},
+				border = true,
+				border_virtual = true,
 			},
 			code = {
 				sign = false,
-				style = "full",
+				style = "normal",
 				border = "thin",
-				above = "▄",
-				below = "▀",
 				language_pad = 1,
 			},
 			bullet = {
-				icons = { "●", "○", "◆", "◇" },
+				icons = { "•", "◦", "▸", "▹" },
 			},
 			checkbox = {
-				unchecked = { icon = "󰄱 " },
-				checked = { icon = "󰱒 " },
+				unchecked = { icon = "☐ " },
+				checked = { icon = "☑ " },
 			},
 			pipe_table = { style = "full" },
 			hr = { icon = "─" },
-			quote = { icon = "▎" },
+			quote = { icon = "│" },
 		},
 	},
 
-	{
-		"iamcco/markdown-preview.nvim",
-		ft = { "markdown" },
-		pin = true,
-		build = "cd app && npm install && git checkout -- yarn.lock",
-		cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
-		keys = {
-			{ "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown preview" },
-		},
-		init = function()
-			vim.g.mkdp_auto_close = 1
-			vim.g.mkdp_theme = "dark"
-		end,
-	},
 }
