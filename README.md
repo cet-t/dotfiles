@@ -53,6 +53,8 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python / Go / TypeScript 開
 | stylua (Lua fmt)   | `scoop install stylua`                                |
 | gitui              | `scoop install gitui`                                 |
 | Nushell            | `scoop install nu`                                    |
+| ripgrep            | `scoop install ripgrep`                               |
+| bat                | `scoop install bat`                                   |
 
 ### Linux
 
@@ -77,7 +79,7 @@ install.sh が自動でインストールしてくれる（apt / dnf / pacman �
 
 | プラグイン                                  | 説明                                         |
 | ------------------------------------------- | -------------------------------------------- |
-| nvim-telescope/telescope.nvim               | ファジーファインダー                         |
+| ibhagwan/fzf-lua                            | ファジーファインダー（ripgrep / bat 連携）   |
 | nvim-treesitter/nvim-treesitter             | シンタックスハイライト・インデント           |
 | nvim-treesitter/nvim-treesitter-textobjects | 関数・クラス・引数などのテキストオブジェクト |
 | nvim-treesitter/nvim-treesitter-context     | 現在のスコープをバッファ上部に固定表示       |

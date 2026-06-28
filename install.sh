@@ -83,6 +83,16 @@ if ! command -v node &>/dev/null; then
   install_pkg nodejs
 fi
 
+# ripgrep
+if ! command -v rg &>/dev/null; then
+  install_pkg ripgrep
+fi
+
+# bat
+if ! command -v bat &>/dev/null; then
+  install_pkg bat
+fi
+
 # ── symlinks ────────────────────────────────────────────────────────
 echo "==> Creating symlinks..."
 

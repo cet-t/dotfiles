@@ -29,7 +29,11 @@ $scoopPkgs = @(
     "taplo",
     "nodejs",
     "lazygit",
-    "go"
+    "go",
+    "ripgrep",
+    "bat",
+    "gitui",
+    "nu"
 )
 foreach ($pkg in $scoopPkgs) {
     if (-not (Get-Command $pkg -ErrorAction SilentlyContinue)) {
