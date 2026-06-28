@@ -266,33 +266,14 @@ return {
 	},
 
 	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		ft = { "markdown", "Avante" },
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+		"OXY2DEV/markview.nvim",
+		ft = { "markdown", "markdown_inline" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		opts = {
-			heading = {
-				sign = false,
-				icons = { "# ", "## ", "### ", "#### ", "##### ", "###### " },
-				backgrounds = {},
-				border = true,
-				border_virtual = true,
+			preview = {
+				modes = { "n", "no", "c" },
+				hybrid_modes = { "i", "v" },
 			},
-			code = {
-				sign = false,
-				style = "normal",
-				border = "thin",
-				language_pad = 1,
-			},
-			bullet = {
-				icons = { "•", "◦", "▸", "▹" },
-			},
-			checkbox = {
-				unchecked = { icon = "☐ " },
-				checked = { icon = "☑ " },
-			},
-			pipe_table = { style = "full" },
-			hr = { icon = "─" },
-			quote = { icon = "│" },
 		},
 	},
 
