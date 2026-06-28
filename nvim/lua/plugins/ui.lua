@@ -55,7 +55,7 @@ return {
 				win_options = { winblend = 10 },
 			},
 			keymaps = {
-				["<CR>"] = "actions.select",
+				[";"] = "actions.select",
 				["-"] = "actions.parent",
 				["_"] = "actions.open_cwd",
 				["`"] = "actions.cd",
@@ -83,10 +83,14 @@ return {
 					processing = true
 					if not timer then
 						timer = vim.uv.new_timer()
-						timer:start(0, 100, vim.schedule_wrap(function()
-							spinner_index = (spinner_index % #spinner_frames) + 1
-							vim.cmd("redrawstatus")
-						end))
+						timer:start(
+							0,
+							100,
+							vim.schedule_wrap(function()
+								spinner_index = (spinner_index % #spinner_frames) + 1
+								vim.cmd("redrawstatus")
+							end)
+						)
 					end
 				end,
 			})
