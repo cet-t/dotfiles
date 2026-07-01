@@ -27,11 +27,11 @@ return {
 				zig = { "zigfmt" },
 				cs = { "csharpier" },
 				python = { "ruff_format" },
-				yaml   = { "prettier" },
-				xml    = { "xmllint" },
-				javascript      = { "prettier" },
+				yaml = { "prettier" },
+				xml = { "xmllint" },
+				javascript = { "prettier" },
 				javascriptreact = { "prettier" },
-				typescript      = { "prettier" },
+				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
 			},
 			format_on_save = {
@@ -46,11 +46,12 @@ return {
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		keys = {
-			{ "<C-\\>", desc = "Toggle float terminal" },
-			{ "<leader>j", desc = "Toggle horizontal terminal" },
+			{ "<leader>j", desc = "Toggle horizontal terminal(pwsh)" },
+			{ "<leader>n", desc = "Toggle horizontal terminal(nu)" },
 			{ "<M-q>", desc = "Toggle Gemini CLI" },
 			{ "<leader>kt", desc = "Toggle Kilocode" },
 			{ "<leader>gg", desc = "Toggle gitui" },
+			{ "<leader>cc", desc = "Toggle Cargo TUI" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -63,12 +64,6 @@ return {
 
 			local Terminal = require("toggleterm.terminal").Terminal
 
-			-- floating
-			local float_term = Terminal:new({ direction = "float", hidden = true })
-			vim.keymap.set({ "n", "t" }, "<C-\\>", function()
-				float_term:toggle()
-			end, { desc = "Toggle float terminal" })
-
 			-- floating terminal (semi-transparent)
 			local horiz_term = Terminal:new({
 				direction = "float",
@@ -77,7 +72,18 @@ return {
 			})
 			vim.keymap.set({ "n", "t" }, "<leader>j", function()
 				horiz_term:toggle()
-			end, { desc = "Toggle float terminal" })
+			end, { desc = "Toggle float terminal(pwsh)" })
+
+			-- floating terminal (nushell, semi-transparent)
+			local nu_term = Terminal:new({
+				cmd = "nu",
+				direction = "float",
+				hidden = true,
+				float_opts = { border = "curved", winblend = 15 },
+			})
+			vim.keymap.set({ "n", "t" }, "<leader>n", function()
+				nu_term:toggle()
+			end, { desc = "Toggle float terminal(nu)" })
 
 			-- Gemini CLI
 			local gemini_term = Terminal:new({
@@ -111,6 +117,17 @@ return {
 			vim.keymap.set({ "n", "t" }, "<leader>gg", function()
 				gitui_term:toggle()
 			end, { desc = "Toggle gitui" })
+
+			-- cargo-tui
+			local cargo_term = Terminal:new({
+				cmd = "cargo-tui",
+				direction = "float",
+				hidden = true,
+				float_opts = { border = "curved" },
+			})
+			vim.keymap.set({ "n", "t" }, "<leader>cc", function()
+				cargo_term:toggle()
+			end, { desc = "Toggle Cargo TUI" })
 		end,
 	},
 

@@ -4,8 +4,7 @@ vim.g.maplocalleader = " "
 local map = vim.keymap.set
 
 -- preserved from old config
-map("n", "qq", ":qall!<CR>", { silent = true, desc = "Quit all" })
-
+map("n", "qq", "<cmd>qall!<CR>", { silent = true, desc = "Quit all" })
 
 -- diagnostics
 map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Diagnostic float" })
@@ -20,3 +19,4 @@ map("n", "<S-l>", "<cmd>bnext<CR>", { desc = "Next buffer" })
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search" })
 
 map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
+map({ "n", "v", "i" }, "<leader>;", ":", { desc = "Enter command mode" })

@@ -33,7 +33,14 @@ $env.config.datetime_format = {
 $env.config.buffer_editor = "nvim"
 
 $env.config.table.mode = 'psql'
-$env.config.color_config.datetime = 'dark_gray'
+$env.config.color_config.datetime = {
+  |dt| if $dt > ((date now) - 30day) {
+    'gray'
+  } else {
+    'dark_gray'
+  }
+}
+
 $env.config.color_config.filesize = { 
   |x| if $x == 0b { 
      'dark_gray' 
