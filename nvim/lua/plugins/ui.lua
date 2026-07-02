@@ -1,4 +1,4 @@
-return {
+﻿return {
 	{
 		"DaikyXendo/nvim-material-icon",
 		priority = 100,
@@ -31,19 +31,23 @@ return {
 
 	{
 		"FylerOrg/fyler.nvim",
+		init = function()
+			vim.g.loaded_netrw = 1
+			vim.g.loaded_netrwPlugin = 1
+		end,
 		keys = {
-			{
-				"<leader>e",
-				function() require("fyler").open() end,
-				desc = "Fyler: open",
-			},
-			{
-				"-",
-				function() require("fyler").open({ root_path = vim.fn.expand("%:p:h") }) end,
-				desc = "Fyler: open current dir",
+			{ "<leader>e", function() require("fyler").open() end, desc = "Fyler: open" },
+			{ "-", function() require("fyler").open({ root_path = vim.fn.expand("%:p:h") }) end, desc = "Fyler: open current dir" },
+		},
+		opts = {
+			use_as_default_explorer = true,
+			mappings = {
+				n = {
+					[";"] = { action = "select" },
+					["<CR>"] = { disabled = true },
+				},
 			},
 		},
-		opts = {},
 	},
 
 	{
