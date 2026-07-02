@@ -31,6 +31,7 @@ return {
 
 	{
 		"FylerOrg/fyler.nvim",
+		lazy = false,
 		init = function()
 			vim.g.loaded_netrw = 1
 			vim.g.loaded_netrwPlugin = 1
@@ -54,15 +55,15 @@ return {
 		},
 		config = function(_, opts)
 			require("fyler").setup(opts)
-			-- 引数なし起動、またはディレクトリ指定起動のときに自動でFylerを開く
+			-- setup 完了後に開くため vim.schedule で遅延
 			vim.api.nvim_create_autocmd("VimEnter", {
 				once = true,
-				callback = function()
+				callback = vim.schedule_wrap(function()
 					local arg = vim.fn.argv(0)
 					if arg == "" or vim.fn.isdirectory(arg) == 1 then
 						require("fyler").open({ root_path = arg ~= "" and arg or vim.fn.getcwd() })
 					end
-				end,
+				end),
 			})
 		end,
 	},
