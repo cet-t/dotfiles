@@ -51,7 +51,7 @@ $env.config.color_config.filesize = {
   } else if $x > 1kb {
     '#badf8f' 
   } else if $x > 0b {
-    '#bababa'
+    'dark_gray'
   } else {
     '#ff40ff' # material error
   }
