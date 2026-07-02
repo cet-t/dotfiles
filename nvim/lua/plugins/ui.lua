@@ -30,42 +30,20 @@ return {
 	},
 
 	{
-		"stevearc/oil.nvim",
-		lazy = false,
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		init = function()
-			vim.g.loaded_netrw = 1
-			vim.g.loaded_netrwPlugin = 1
-		end,
+		"FylerOrg/fyler.nvim",
 		keys = {
-			{ "-", "<cmd>Oil<CR>", desc = "Open parent directory" },
-			{ "<leader>e", "<cmd>Oil --float<CR>", desc = "Oil (float)" },
-		},
-		opts = {
-			default_file_explorer = true,
-			delete_to_trash = true,
-			skip_confirm_for_simple_edits = true,
-			view_options = {
-				show_hidden = true,
+			{
+				"<leader>e",
+				function() require("fyler").open() end,
+				desc = "Fyler: open",
 			},
-			float = {
-				padding = 2,
-				max_width = 80,
-				max_height = 40,
-				win_options = { winblend = 10 },
-			},
-			keymaps = {
-				[";"] = "actions.select",
-				["-"] = "actions.parent",
-				["_"] = "actions.open_cwd",
-				["`"] = "actions.cd",
-				["~"] = "actions.tcd",
-				["gs"] = "actions.change_sort",
-				["gx"] = "actions.open_external",
-				["g."] = "actions.toggle_hidden",
-				["g\\"] = "actions.toggle_trash",
+			{
+				"-",
+				function() require("fyler").open({ root_path = vim.fn.expand("%:p:h") }) end,
+				desc = "Fyler: open current dir",
 			},
 		},
+		opts = {},
 	},
 
 	{
