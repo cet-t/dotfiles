@@ -41,16 +41,30 @@ return {
 		},
 		opts = {
 			use_as_default_explorer = true,
+			kind = "floating",
 			integrations = {
 				icon = "nvim_web_devicons",
 			},
 			mappings = {
 				n = {
-					[";"] = { action = "select" },
+					[";"] = { action = "select", args = { close = true } },
 					["<CR>"] = { disabled = true },
 				},
 			},
 		},
+		config = function(_, opts)
+			require("fyler").setup(opts)
+			-- 引数なし起動、またはディレクトリ指定起動のときに自動でFylerを開く
+			vim.api.nvim_create_autocmd("VimEnter", {
+				once = true,
+				callback = function()
+					local arg = vim.fn.argv(0)
+					if arg == "" or vim.fn.isdirectory(arg) == 1 then
+						require("fyler").open({ root_path = arg ~= "" and arg or vim.fn.getcwd() })
+					end
+				end,
+			})
+		end,
 	},
 
 	{
