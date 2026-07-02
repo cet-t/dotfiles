@@ -1,4 +1,4 @@
-﻿return {
+return {
 	{
 		"DaikyXendo/nvim-material-icon",
 		priority = 100,
@@ -41,6 +41,9 @@
 		},
 		opts = {
 			use_as_default_explorer = true,
+			integrations = {
+				icon = "nvim_web_devicons",
+			},
 			mappings = {
 				n = {
 					[";"] = { action = "select" },
