@@ -50,6 +50,11 @@ return {
 				cursorline = true,
 				winhighlight = "CursorLine:FylerCursorLine",
 			},
+			ui = {
+				hidden_items = {
+					switches = {},
+				},
+			},
 			mappings = {
 				n = {
 					[";"] = { action = "select", args = { close = true } },
