@@ -46,6 +46,10 @@ return {
 			integrations = {
 				icon = "nvim_web_devicons",
 			},
+			win_opts = {
+				cursorline = true,
+				winhighlight = "CursorLine:FylerCursorLine",
+			},
 			mappings = {
 				n = {
 					[";"] = { action = "select", args = { close = true } },
@@ -55,6 +59,7 @@ return {
 		},
 		config = function(_, opts)
 			require("fyler").setup(opts)
+			vim.api.nvim_set_hl(0, "FylerCursorLine", { underline = true, bg = "NONE" })
 			-- setup 完了後に開くため vim.schedule で遅延
 			vim.api.nvim_create_autocmd("VimEnter", {
 				once = true,
