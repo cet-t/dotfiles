@@ -50,6 +50,12 @@ if (-not (Get-Command prettier -ErrorAction SilentlyContinue)) {
     npm install -g prettier
 }
 
+# cargo-tui (bun)
+if (-not (Get-Command cargo-tui -ErrorAction SilentlyContinue)) {
+    Write-Host "Installing cargo-tui..."
+    bun add -g cargo-tui
+}
+
 # Go tools
 $goTools = @(
     "golang.org/x/tools/gopls@latest",

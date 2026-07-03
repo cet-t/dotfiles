@@ -83,6 +83,12 @@ if ! command -v node &>/dev/null; then
   install_pkg nodejs
 fi
 
+# cargo-tui
+if ! command -v cargo-tui &>/dev/null; then
+  echo "Installing cargo-tui..."
+  bun add -g cargo-tui
+fi
+
 # ripgrep
 if ! command -v rg &>/dev/null; then
   install_pkg ripgrep
