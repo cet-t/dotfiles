@@ -1,0 +1,75 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "plugin": [
+    "caveman-opencode-plugin@latest",
+    [
+      "token-optimizer-opencode",
+      {
+        "qualityWindow": 20,
+        "defaultMode": "wenyan-ultra",
+        "features": {
+          "caveman": true,
+          "commit": true,
+          "review": true,
+          "qualityNudges": true,
+          "loopDetection": true,
+          "smartCompaction": true,
+          "continuity": true,
+          "activityTracking": true,
+          "trends": true,
+        },
+      },
+    ],
+    "context-mode@latest",
+  ],
+  "permission": {
+    "bash": {
+      "*": "allow",
+    },
+    "external_directory": {
+      "*": "allow",
+    },
+  },
+  "auto_collapse_reasoning": true,
+  "terminal_command_display": "collapsed",
+  "model": "kilo/stepfun/step-3.7-flash:free",
+  "small_model": "kilo/stepfun/step-3.7-flash:free",
+  "username": "cet",
+  "agent": {
+    "plan": {
+      "model": "kilo/stepfun/step-3.7-flash:free",
+    },
+    "debug": {
+      "model": "kilo/stepfun/step-3.7-flash:free",
+    },
+    "orchestrator": {
+      "model": "kilo/stepfun/step-3.7-flash:free",
+    },
+    "ask": {
+      "model": "kilo/stepfun/step-3.7-flash:free",
+    },
+    "code": {
+      "model": "kilo/stepfun/step-3.7-flash:free",
+    },
+  },
+  "provider": {
+    "fugu": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Sakana AI",
+      "options": {
+        "baseURL": "https://api.sakana.ai/v1",
+        "apiKey": "{env:SAKANA_API_KEY}",
+      },
+      "models": {
+        "fugu": {
+          "name": "Fugu",
+        },
+        "fugu-ultra": {
+          "name": "Fugu Ultra",
+        },
+      },
+    },
+  },
+  "subagent_model": "kilo/stepfun/step-3.7-flash:free",
+}
+
