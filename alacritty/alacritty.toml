@@ -15,8 +15,8 @@ dimensions = { columns = 220, lines = 50 }
 history = 10000
 
 [font]
-normal = { family = "MonofurZenMaruGothic Regular", style = "Regular" }
-size = 14.0
+normal = { family = "MonofurZenMaruGothic", style = "Regular" }
+size = 12.0
 
 [colors.primary]
 background = "#282c34"
@@ -46,8 +46,7 @@ white = "#ffffff"
 style = { shape = "Block", blinking = "Off" }
 
 [terminal.shell]
-program = "powershell.exe"
-args = ["-NoLogo"]
+program = "nu.exe"
 
 [keyboard]
 bindings = [
