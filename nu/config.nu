@@ -19,7 +19,10 @@
 
 # --- Aliases ---
 
+alias ll = ls -l
+
 alias nv = nvim
+alias nvd = nvim .
 
 # ---------------
 
