@@ -161,6 +161,18 @@ return {
 				})
 				vim.lsp.enable("eslint")
 			end
+
+			-- Nushell
+			if vim.fn.executable("nu") == 1 then
+				vim.lsp.config("nushell", {
+					on_attach = on_attach,
+					capabilities = caps,
+					cmd = { "nu", "--lsp" },
+					filetypes = { "nu" },
+					root_markers = { ".git" },
+				})
+				vim.lsp.enable("nushell")
+			end
 		end,
 	},
 }
