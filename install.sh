@@ -38,11 +38,6 @@ esac
 # ── packages ────────────────────────────────────────────────────────
 echo "==> Installing packages..."
 
-# zsh
-if ! command -v zsh &>/dev/null; then
-  install_pkg zsh
-fi
-
 # git
 if ! command -v git &>/dev/null; then
   install_pkg git
@@ -83,12 +78,6 @@ if ! command -v node &>/dev/null; then
   install_pkg nodejs
 fi
 
-# cargo-tui
-if ! command -v cargo-tui &>/dev/null; then
-  echo "Installing cargo-tui..."
-  bun add -g cargo-tui
-fi
-
 # ripgrep
 if ! command -v rg &>/dev/null; then
   install_pkg ripgrep
@@ -99,24 +88,32 @@ if ! command -v bat &>/dev/null; then
   install_pkg bat
 fi
 
+# alacritty
+if ! command -v alacritty &>/dev/null; then
+  install_pkg alacritty
+fi
+
+# nushell
+if ! command -v nu &>/dev/null; then
+  install_pkg nushell
+fi
+
 # ── symlinks ────────────────────────────────────────────────────────
 echo "==> Creating symlinks..."
 
 # nvim
 link "$DOTFILES/nvim" "$HOME/.config/nvim"
 
-# zsh
-link "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
+# alacritty
+link "$DOTFILES/alacritty" "$HOME/.config/alacritty"
 
-# wezterm (Linux desktop の場合)
-if [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]; then
-  link "$DOTFILES/wezterm/.wezterm.lua" "$HOME/.wezterm.lua"
-fi
+# nushell
+link "$DOTFILES/nu" "$HOME/.config/nushell"
 
-# ── set default shell to zsh ────────────────────────────────────────
-if [ "$SHELL" != "$(which zsh)" ]; then
-  echo "==> Setting zsh as default shell..."
-  chsh -s "$(which zsh)"
+# ── set default shell to nushell ────────────────────────────────────
+if [ "$SHELL" != "$(which nu)" ]; then
+  echo "==> Setting nushell as default shell..."
+  chsh -s "$(which nu)"
 fi
 
 echo ""

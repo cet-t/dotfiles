@@ -62,6 +62,7 @@ return {
 				n = {
 					[";"] = { action = "select", args = { close = true } },
 					["<CR>"] = { disabled = true },
+					["<C-H>"] = { action = "select", args = { split = true } },
 				},
 			},
 		},

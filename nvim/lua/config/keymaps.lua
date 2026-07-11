@@ -20,4 +20,4 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search" })
 
 map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
 map({ "n", "v", "i" }, "<leader>;", ":", { desc = "Enter command mode" })
-map({ "n", "t" }, "<leader>\\", "<c-\\-n>")
+map({ "n", "t" }, "<c-\\>", "<c-\\><c-n>")

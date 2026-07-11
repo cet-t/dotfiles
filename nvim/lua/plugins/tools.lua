@@ -46,12 +46,8 @@ return {
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		keys = {
-			{ "<leader>j", desc = "Toggle horizontal terminal(pwsh)" },
-			{ "<leader>n", desc = "Toggle horizontal terminal(nu)" },
-			{ "<M-q>", desc = "Toggle Gemini CLI" },
+			{ "<leader>j", desc = "Toggle float terminal(nu)" },
 			{ "<leader>kt", desc = "Toggle Kilocode" },
-			{ "<leader>gg", desc = "Toggle gitui" },
-			{ "<leader>cc", desc = "Toggle Cargo TUI" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -59,20 +55,10 @@ return {
 				shade_terminals = true,
 				direction = "float",
 				float_opts = { border = "curved" },
-				shell = "powershell",
+				shell = "nu",
 			})
 
 			local Terminal = require("toggleterm.terminal").Terminal
-
-			-- floating terminal (semi-transparent)
-			local horiz_term = Terminal:new({
-				direction = "float",
-				hidden = true,
-				float_opts = { border = "curved", winblend = 15 },
-			})
-			vim.keymap.set({ "n", "t" }, "<leader>j", function()
-				horiz_term:toggle()
-			end, { desc = "Toggle float terminal(pwsh)" })
 
 			-- floating terminal (nushell, semi-transparent)
 			local nu_term = Terminal:new({
@@ -81,20 +67,9 @@ return {
 				hidden = true,
 				float_opts = { border = "curved", winblend = 15 },
 			})
-			vim.keymap.set({ "n", "t" }, "<leader>n", function()
+			vim.keymap.set({ "n", "t" }, "<leader>j", function()
 				nu_term:toggle()
 			end, { desc = "Toggle float terminal(nu)" })
-
-			-- Gemini CLI
-			local gemini_term = Terminal:new({
-				cmd = "gemini",
-				direction = "float",
-				hidden = true,
-				float_opts = { border = "curved" },
-			})
-			vim.keymap.set({ "n", "t" }, "<M-q>", function()
-				gemini_term:toggle()
-			end, { desc = "Toggle Gemini CLI" })
 
 			-- Kilocode
 			local kilocode_term = Terminal:new({
@@ -106,28 +81,6 @@ return {
 			vim.keymap.set({ "n", "t" }, "<leader>kt", function()
 				kilocode_term:toggle(math.floor(vim.o.columns * 0.35))
 			end, { desc = "Toggle Kilocode" })
-
-			-- gitui
-			local gitui_term = Terminal:new({
-				cmd = "gitui",
-				direction = "float",
-				hidden = true,
-				float_opts = { border = "curved", winblend = 15 },
-			})
-			vim.keymap.set({ "n", "t" }, "<leader>gg", function()
-				gitui_term:toggle()
-			end, { desc = "Toggle gitui" })
-
-			-- cargo-tui
-			local cargo_term = Terminal:new({
-				cmd = "cargo-tui",
-				direction = "float",
-				hidden = true,
-				float_opts = { border = "curved" },
-			})
-			vim.keymap.set({ "n", "t" }, "<leader>cc", function()
-				cargo_term:toggle()
-			end, { desc = "Toggle Cargo TUI" })
 		end,
 	},
 
@@ -149,7 +102,7 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		cmd = { "ClaudeCode", "ClaudeCodeContinue", "ClaudeCodeDiff" },
 		keys = {
-			{ "<M-w>", "<cmd>ClaudeCode<CR>", desc = "Toggle Claude Code", mode = { "n", "t" } },
+			{ "<M-q>", "<cmd>ClaudeCode<CR>", desc = "Toggle Claude Code", mode = { "n", "t" } },
 			{ "<leader>ar", "<cmd>ClaudeCodeContinue<CR>", desc = "Claude Code (resume)", mode = { "n" } },
 		},
 		opts = {

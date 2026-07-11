@@ -10,8 +10,8 @@ $NvimDst        = Join-Path $env:LOCALAPPDATA "nvim"
 $AlacrittyDir   = Join-Path $env:APPDATA "alacritty"
 $AlacritySrc    = Join-Path $DotfilesDir "alacritty\alacritty.toml"
 $AlacrittyDst   = Join-Path $AlacrittyDir "alacritty.toml"
-$PsProfileSrc   = Join-Path $DotfilesDir "powershell\profile.ps1"
-$PsProfileDst   = $PROFILE
+$NuSrc          = Join-Path $DotfilesDir "nu"
+$NuDst          = Join-Path $env:APPDATA "nushell"
 
 # scoop
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
@@ -28,11 +28,9 @@ $scoopPkgs = @(
     "stylua",
     "taplo",
     "nodejs",
-    "lazygit",
     "go",
     "ripgrep",
     "bat",
-    "gitui",
     "nu"
 )
 foreach ($pkg in $scoopPkgs) {
@@ -48,12 +46,6 @@ foreach ($pkg in $scoopPkgs) {
 if (-not (Get-Command prettier -ErrorAction SilentlyContinue)) {
     Write-Host "Installing prettier..."
     npm install -g prettier
-}
-
-# cargo-tui (bun)
-if (-not (Get-Command cargo-tui -ErrorAction SilentlyContinue)) {
-    Write-Host "Installing cargo-tui..."
-    bun add -g cargo-tui
 }
 
 # Go tools
@@ -90,15 +82,14 @@ if (Test-Path $AlacrittyDst) {
 New-Item -ItemType SymbolicLink -Path $AlacrittyDst -Target $AlacritySrc | Out-Null
 Write-Host "Linked: $AlacritySrc -> $AlacrittyDst"
 
-# PowerShell profile
-$PsProfileDir = Split-Path -Parent $PsProfileDst
-if (-not (Test-Path $PsProfileDir)) {
-    New-Item -ItemType Directory -Path $PsProfileDir | Out-Null
+# nushell
+if (-not (Test-Path $NuDst)) {
+    New-Item -ItemType Directory -Path $NuDst | Out-Null
 }
-if (Test-Path $PsProfileDst) {
-    Move-Item -Path $PsProfileDst -Destination "${PsProfileDst}.bak" -Force
+if (Test-Path $NuDst) {
+    Move-Item -Path $NuDst -Destination "${NuDst}.bak" -Force
 }
-New-Item -ItemType SymbolicLink -Path $PsProfileDst -Target $PsProfileSrc | Out-Null
-Write-Host "Linked: $PsProfileSrc -> $PsProfileDst"
+New-Item -ItemType SymbolicLink -Path $NuDst -Target $NuSrc | Out-Null
+Write-Host "Linked: $NuSrc -> $NuDst"
 
 Write-Host "Done. Run 'nvim' to install plugins."

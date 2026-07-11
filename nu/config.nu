@@ -62,7 +62,7 @@ $env.config.color_config.filesize = {
 
 $env.config.edit_mode = "vi"
 $env.config.cursor_shape = {
-  vi_normal: "line"
+  vi_normal: "blink_block"
   vi_insert: "block"
 }
 
@@ -76,3 +76,5 @@ $env.config.history = {
 $env.config.completions = {
   algorithm: fuzzy
 }
+
+$env.coding.buffer_editor = 'nvim'
