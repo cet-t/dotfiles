@@ -48,6 +48,7 @@ return {
 		keys = {
 			{ "<leader>j", desc = "Toggle float terminal(nu)" },
 			{ "<leader>kt", desc = "Toggle Kilocode" },
+			{ "<leader>ct", desc = "Toggle Codex" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -81,6 +82,17 @@ return {
 			vim.keymap.set({ "n", "t" }, "<leader>kt", function()
 				kilocode_term:toggle(math.floor(vim.o.columns * 0.35))
 			end, { desc = "Toggle Kilocode" })
+
+			-- Codex
+			local codex_term = Terminal:new({
+				cmd = "codex",
+				direction = "vertical",
+				size = math.floor(vim.o.columns * 0.35),
+				hidden = true,
+			})
+			vim.keymap.set({ "n", "t" }, "<leader>ct", function()
+				codex_term:toggle(math.floor(vim.o.columns * 0.35))
+			end, { desc = "Toggle Codex" })
 		end,
 	},
 
@@ -93,41 +105,6 @@ return {
 		},
 		config = function()
 			require("hex").setup()
-		end,
-	},
-
-	-- Claude Code
-	{
-		"greggh/claude-code.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		cmd = { "ClaudeCode", "ClaudeCodeContinue", "ClaudeCodeDiff" },
-		keys = {
-			{ "<M-q>", "<cmd>ClaudeCode<CR>", desc = "Toggle Claude Code", mode = { "n", "t" } },
-			{ "<leader>ar", "<cmd>ClaudeCodeContinue<CR>", desc = "Claude Code (resume)", mode = { "n" } },
-		},
-		opts = {
-			window = {
-				position = "float",
-				width = 0.8,
-				height = 0.8,
-			},
-		},
-		config = function(_, opts)
-			require("claude-code").setup(opts)
-			-- Semi-transparent float: initial open
-			vim.api.nvim_create_autocmd("TermOpen", {
-				pattern = "*claude*",
-				callback = function()
-					vim.wo.winblend = 10
-				end,
-			})
-			-- Semi-transparent float: re-show existing buffer
-			vim.api.nvim_create_autocmd("BufWinEnter", {
-				pattern = "claude-code*",
-				callback = function()
-					vim.wo.winblend = 10
-				end,
-			})
 		end,
 	},
 }
