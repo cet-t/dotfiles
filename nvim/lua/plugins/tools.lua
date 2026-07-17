@@ -46,7 +46,7 @@ return {
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		keys = {
-			{ "<leader>j", desc = "Toggle float terminal(nu)" },
+			{ "<leader>j", desc = "Toggle Nushell" },
 			{ "<leader>kt", desc = "Toggle Kilocode" },
 			{ "<leader>ct", desc = "Toggle Codex" },
 		},
@@ -61,16 +61,16 @@ return {
 
 			local Terminal = require("toggleterm.terminal").Terminal
 
-			-- floating terminal (nushell, semi-transparent)
+			-- Nushell
 			local nu_term = Terminal:new({
 				cmd = "nu",
-				direction = "float",
+				direction = "horizontal",
 				hidden = true,
-				float_opts = { border = "curved", winblend = 15 },
+				size = math.floor(vim.o.lines * 0.35),
 			})
 			vim.keymap.set({ "n", "t" }, "<leader>j", function()
-				nu_term:toggle()
-			end, { desc = "Toggle float terminal(nu)" })
+				nu_term:toggle(math.floor(vim.o.lines * 0.35))
+			end, { desc = "Toggle float Nushell" })
 
 			-- Kilocode
 			local kilocode_term = Terminal:new({
