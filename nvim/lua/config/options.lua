@@ -23,4 +23,3 @@ opt.splitbelow = true
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
-opt.guicursor = "i-ci:hor25"

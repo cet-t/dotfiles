@@ -17,19 +17,19 @@ Neovim 設定。lazy.nvim + Rust / C++ / Zig / C# / Python / Go / TypeScript 開
 | 補完                   | nvim-cmp + LuaSnip + minuet-ai (Codestral)                                      |
 | AI チャット            | codecompanion.nvim（OpenRouter / Gemini / xAI / Sakana AI）                     |
 | AI エージェント        | opencode.nvim                                                                   |
-| ファジーファインダー   | fzf-lua                                                                           |
-| ファイルエクスプローラ | fyler.nvim                                                                       |
+| ファジーファインダー   | fzf-lua                                                                         |
+| ファイルエクスプローラ | fyler.nvim                                                                      |
 | フォーマッタ           | conform.nvim (rustfmt, clang-format, zigfmt, stylua, prettier, ruff, goimports) |
 | 診断                   | tiny-inline-diagnostic + Trouble                                                |
 | スクロールバー         | satellite.nvim（git変更・診断・検索マーカー）                                   |
 | 折り畳み               | nvim-ufo（LSP / treesitter ベース）                                             |
 | テキストオブジェクト   | nvim-treesitter-textobjects + targets.vim + nvim-surround + vim-expand-region   |
 | コンテキスト表示       | nvim-treesitter-context                                                         |
-| ターミナル             | toggleterm.nvim（Kilocode 統合）                                               |
+| ターミナル             | toggleterm.nvim（Kilocode 統合）                                                |
 | バイナリエディタ       | hex.nvim                                                                        |
 | テーマ                 | One Dark (darker)                                                               |
-| シェル                 | Nushell                                                                           |
-| ターミナルエミュレータ | Alacritty / Windows Terminal                                                      |
+| シェル                 | Nushell                                                                         |
+| ターミナルエミュレータ | Alacritty / Windows Terminal                                                    |
 
 ## 必要なもの
 
@@ -62,18 +62,18 @@ install.sh が自動でインストールしてくれる（apt / dnf / pacman �
 
 ### UI
 
-| プラグイン                           | 説明                                      |
-| ------------------------------------ | ----------------------------------------- |
-| navarasu/onedark.nvim                | カラースキーム（darker）                  |
-| xiyaowong/transparent.nvim           | 透過（バッファライン等も透過）            |
-| akinsho/bufferline.nvim              | タブバー                                  |
-| nvim-lualine/lualine.nvim            | ステータスバー（AI spinner 付き）         |
-| FylerOrg/fyler.nvim                  | ファイルエクスプローラ（フロートUI）      |
-| lukas-reineke/indent-blankline.nvim  | インデントガイド                          |
-| folke/noice.nvim                     | UI 強化（コマンド・通知・ホバー）         |
-| lewis6991/satellite.nvim             | スクロールバー（git・診断・検索マーカー） |
-| DaikyXendo/nvim-material-icon        | ファイルアイコン（web-devicons 依存）     |
-| rcarriga/nvim-notify                 | 通知                                       |
+| プラグイン                          | 説明                                      |
+| ----------------------------------- | ----------------------------------------- |
+| projekt0n/github-nvim-theme         | カラースキーム（dimmed）                  |
+| xiyaowong/transparent.nvim          | 透過（バッファライン等も透過）            |
+| akinsho/bufferline.nvim             | タブバー                                  |
+| nvim-lualine/lualine.nvim           | ステータスバー（AI spinner 付き）         |
+| FylerOrg/fyler.nvim                 | ファイルエクスプローラ（フロートUI）      |
+| lukas-reineke/indent-blankline.nvim | インデントガイド                          |
+| folke/noice.nvim                    | UI 強化（コマンド・通知・ホバー）         |
+| lewis6991/satellite.nvim            | スクロールバー（git・診断・検索マーカー） |
+| DaikyXendo/nvim-material-icon       | ファイルアイコン（web-devicons 依存）     |
+| rcarriga/nvim-notify                | 通知                                      |
 
 ### エディタ
 
@@ -113,7 +113,7 @@ install.sh が自動でインストールしてくれる（apt / dnf / pacman �
 | プラグイン                   | 説明                                                                                   |
 | ---------------------------- | -------------------------------------------------------------------------------------- |
 | stevearc/conform.nvim        | フォーマッタ（rustfmt / clang-format / zigfmt / stylua / prettier / ruff / goimports） |
-| akinsho/toggleterm.nvim      | ターミナル（フロート・Kilocode）                                           |
+| akinsho/toggleterm.nvim      | ターミナル（フロート・Kilocode）                                                       |
 | greggh/claude-code.nvim      | Claude Code 統合                                                                       |
 | olimorris/codecompanion.nvim | AI チャット・インライン編集・セッション管理・コンテキスト圧縮                          |
 | nickjvandyke/opencode.nvim   | OpenCode AI エージェント統合（snacks.nvim 依存）                                       |
