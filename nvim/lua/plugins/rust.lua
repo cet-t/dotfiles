@@ -51,9 +51,14 @@ return {
 	},
 
 	-- TOML support (Cargo.toml)
+	-- On: Crates show
+	-- Off: Crates hide
 	{
 		"saecki/crates.nvim",
 		event = "BufRead Cargo.toml",
-		opts = {},
+		tag = "stable",
+		opts = {
+			autoload = false,
+		},
 	},
 }
