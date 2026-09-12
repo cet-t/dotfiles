@@ -94,17 +94,6 @@ return {
 	},
 
 	{
-		"kylechui/nvim-surround",
-		event = "VeryLazy",
-		opts = {},
-	},
-
-	{
-		"wellle/targets.vim",
-		event = "VeryLazy",
-	},
-
-	{
 		"terryma/vim-expand-region",
 		keys = {
 			{ "+", "<Plug>(expand_region_expand)", mode = { "n", "v" }, desc = "Expand region" },
@@ -195,21 +184,35 @@ return {
 		event = "BufReadPost",
 		keys = {
 			{
-				"zR",
+				"zO",
+				function()
+					require("ufo").openFold()
+				end,
+				desc = "Open current fold",
+			},
+			{
+				"zOA",
 				function()
 					require("ufo").openAllFolds()
 				end,
 				desc = "Open all folds",
 			},
 			{
-				"zM",
+				"zC",
+				function()
+					require("ufo").closeFold()
+				end,
+				desc = "Close current fold",
+			},
+			{
+				"zCA",
 				function()
 					require("ufo").closeAllFolds()
 				end,
 				desc = "Close all folds",
 			},
 			{
-				"zK",
+				"zP",
 				function()
 					local winid = require("ufo").peekFoldedLinesUnderCursor()
 					if not winid then
@@ -249,20 +252,6 @@ return {
 				return newVirtText
 			end,
 		},
-	},
-
-	-- Trouble: diagnostics panel
-	{
-		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		cmd = "Trouble",
-		keys = {
-			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", desc = "Diagnostics (Trouble)" },
-			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", desc = "Buffer diagnostics" },
-			{ "<leader>xL", "<cmd>Trouble loclist toggle<CR>", desc = "Location list" },
-			{ "<leader>xQ", "<cmd>Trouble qflist toggle<CR>", desc = "Quickfix list" },
-		},
-		opts = { use_diagnostic_signs = true },
 	},
 
 	{

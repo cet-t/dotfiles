@@ -23,6 +23,24 @@ if __name__ == "__main__":
     main()
 ```
 
+```cpp
+#include <format>
+#include <iostream>
+
+void swap(int *const a, int *const b) {
+    int t = *b;
+}
+
+int main() {
+    int a = 1;
+    int b = 2;
+    swap(&a, &b);
+    std::cout << std::format("{}, {}", a, b) << std::endl;
+
+    return 0;
+}
+```
+
 ```rust
 use anyhow::Result;
 use serde::{Serialize, Deserialize};

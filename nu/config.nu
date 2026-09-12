@@ -78,3 +78,44 @@ $env.config.completions = {
 }
 
 $env.coding.buffer_editor = 'nvim'
+
+
+def cargo-check-deps [] {
+    if (not ("Cargo.toml" | path exists)) {
+        print "Error: Not found Cargo.toml."
+        return
+    }
+
+    let deps = (open Cargo.toml | get --optional dependencies)
+    if ($deps == null) {
+        print "Not registered deps"
+        return
+    }
+
+    let results = ($deps | columns | each { |crate_name|
+        let current_val = ($deps | get $crate_name)
+        let current_ver = if ($current_val | describe | str contains "record") {
+            $current_val | get --optional version | default "path/git"
+        } else {
+            $current_val
+        }
+
+        let search_res = (cargo search $crate_name --limit 1 err> NUL | lines | first)
+        let matched = ($search_res | parse --regex '=\s*"([^"]+)"')
+        let latest_ver = if ($matched | is-empty) { 
+            "Unknown" 
+        } else { 
+            $matched | get 0.capture0 
+        }
+
+        {
+            Crate: $crate_name,
+            Current: $current_ver,
+            Latest: $latest_ver,
+            Status: (if $current_ver == $latest_ver { "Up-to-date" } else { "Update Available" })
+        }
+    })
+
+    $results
+}
+

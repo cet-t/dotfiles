@@ -51,7 +51,7 @@ return {
 		keys = {
 			{ "<leader>j", desc = "Toggle Nushell" },
 			{ "<leader>kt", desc = "Toggle Kilocode" },
-			{ "<leader>ct", desc = "Toggle Codex" },
+			{ "<leader>ot", desc = "Toggle OpenCode" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -86,16 +86,16 @@ return {
 				kilocode_term:toggle(math.floor(vim.o.columns * 0.35))
 			end, { desc = "Toggle Kilocode" })
 
-			-- Codex
-			local codex_term = Terminal:new({
-				cmd = "codex",
+			-- OpenCode
+			local opencode_term = Terminal:new({
+				cmd = "opencode",
 				direction = "vertical",
 				size = math.floor(vim.o.columns * 0.35),
 				hidden = true,
 			})
-			vim.keymap.set({ "n", "t" }, "<leader>ct", function()
-				codex_term:toggle(math.floor(vim.o.columns * 0.35))
-			end, { desc = "Toggle Codex" })
+			vim.keymap.set({ "n", "t" }, "<leader>ot", function()
+				opencode_term:toggle(math.floor(vim.o.columns * 0.35))
+			end, { desc = "Toggle OpenCode" })
 		end,
 	},
 

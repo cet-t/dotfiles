@@ -2,6 +2,8 @@ return {
 	{
 		"DaikyXendo/nvim-material-icon",
 		priority = 100,
+		color_icons = true,
+		default = true,
 		config = function()
 			require("nvim-web-devicons").setup()
 		end,
@@ -37,8 +39,20 @@ return {
 			vim.g.loaded_netrwPlugin = 1
 		end,
 		keys = {
-			{ "<leader>e", function() require("fyler").open() end, desc = "Fyler: open" },
-			{ "-", function() require("fyler").open({ root_path = vim.fn.expand("%:p:h") }) end, desc = "Fyler: open current dir" },
+			{
+				"<leader>e",
+				function()
+					require("fyler").open()
+				end,
+				desc = "Fyler: open",
+			},
+			{
+				"-",
+				function()
+					require("fyler").open({ root_path = vim.fn.expand("%:p:h") })
+				end,
+				desc = "Fyler: open current dir",
+			},
 		},
 		opts = {
 			use_as_default_explorer = true,
@@ -161,10 +175,17 @@ return {
 			current_only = false,
 			winblend = 50,
 			handlers = {
-				cursor = { enable = true },
-				gitsigns = { enable = true },
+				cursor = { enable = true, symbols = { "⎺", "⎻", "⎼", "⎽" } },
 				diagnostic = { enable = true, signs = { "-", "=", "≡" } },
 				search = { enable = true },
+				gitsigns = {
+					enable = true,
+					signs = {
+						add = "│",
+						change = "│",
+						delete = "-",
+					},
+				},
 			},
 		},
 	},
@@ -175,7 +196,7 @@ return {
 			max_width = 40,
 			max_height = 5,
 			render = "compact",
-			stages = "fade",
+			stages = "static",
 		},
 		config = function(_, opts)
 			require("notify").setup(opts)
