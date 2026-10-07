@@ -5,13 +5,18 @@ param()
 $ErrorActionPreference = "Stop"
 
 $DotfilesDir    = Split-Path -Parent $MyInvocation.MyCommand.Path
+
 $NvimSrc        = Join-Path $DotfilesDir "nvim"
 $NvimDst        = Join-Path $env:LOCALAPPDATA "nvim"
-$AlacrittyDir   = Join-Path $env:APPDATA "alacritty"
-$AlacritySrc    = Join-Path $DotfilesDir "alacritty\alacritty.toml"
-$AlacrittyDst   = Join-Path $AlacrittyDir "alacritty.toml"
+
 $NuSrc          = Join-Path $DotfilesDir "nu"
 $NuDst          = Join-Path $env:APPDATA "nushell"
+
+$HerdrSrc       = Join-Path $DotfilesDir "herdr"
+$HerdrDst       = Join-Path $env:APPDATA "herdr"
+
+$RioSrc         = Join-Path $DotfilesDir "rio"
+$RioDst         = Join-Path $env:LOCALAPPDATA "rio"
 
 # scoop
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
@@ -24,14 +29,13 @@ if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
 $scoopPkgs = @(
     "neovim",
     "git",
-    "starship",
     "stylua",
     "taplo",
     "nodejs",
-    "go",
-    "ripgrep",
+    # "ripgrep",
     "bat",
-    "nu"
+    # "nu",
+    "bun",
 )
 foreach ($pkg in $scoopPkgs) {
     if (-not (Get-Command $pkg -ErrorAction SilentlyContinue)) {
@@ -48,19 +52,25 @@ if (-not (Get-Command prettier -ErrorAction SilentlyContinue)) {
     npm install -g prettier
 }
 
-# Go tools
-$goTools = @(
-    "golang.org/x/tools/gopls@latest",
-    "golang.org/x/tools/cmd/goimports@latest"
+# cargo
+if (-not (Get-Command cargo -V --ErrorAction SilentlyContinue)) {
+    winget install Rustlang.Rustup
+    winget pin add --id Rustlang.Rustup --blocking
+}
+
+# cargo packages
+$cargoPackages = @(
+    "ripgrep",
+    "rio",
+    "nu",
 )
-foreach ($tool in $goTools) {
-    $bin = ($tool -split "/")[-1] -replace "@.*", ""
-    if (-not (Get-Command $bin -ErrorAction SilentlyContinue)) {
-        Write-Host "Installing $bin..."
-        go install $tool
-    } else {
-        Write-Host "Already installed: $bin"
-    }
+foreach ($pkg in $cargoPackages) {
+    cargo install pkg
+}
+
+# herdr
+if (-not (Get-Command herdr -V --ErrorAction SilentlyContinue)) {
+    powershell -ExecutionPolicy Bypass -c "irm https://herdr.dev/install.ps1 | iex"
 }
 
 # nvim
@@ -72,15 +82,14 @@ if (Test-Path $NvimDst) {
 New-Item -ItemType SymbolicLink -Path $NvimDst -Target $NvimSrc | Out-Null
 Write-Host "Linked: $NvimSrc -> $NvimDst"
 
-# alacritty
-if (-not (Test-Path $AlacrittyDir)) {
-    New-Item -ItemType Directory -Path $AlacrittyDir | Out-Null
+# rio
+if (Test-Path $RioDst) {
+    $backup = "${RioDst}.bak"
+    Write-Host "Backup: $RioDst -> $backup"
+    Move-Item -Path $RioDst -Destination $backup -Force
 }
-if (Test-Path $AlacrittyDst) {
-    Move-Item -Path $AlacrittyDst -Destination "${AlacrittyDst}.bak" -Force
-}
-New-Item -ItemType SymbolicLink -Path $AlacrittyDst -Target $AlacritySrc | Out-Null
-Write-Host "Linked: $AlacritySrc -> $AlacrittyDst"
+New-Item -ItemType SymbolicLink -Path $RioDst -Target $RioSrc | Out-Null
+Write-Host "Linked: $RioSrc -> $RioDst"
 
 # nushell
 if (-not (Test-Path $NuDst)) {
@@ -91,5 +100,15 @@ if (Test-Path $NuDst) {
 }
 New-Item -ItemType SymbolicLink -Path $NuDst -Target $NuSrc | Out-Null
 Write-Host "Linked: $NuSrc -> $NuDst"
+
+# herdr
+New-Item -ItemType Directory -Path (Split-Path -Parent $HerdrDst) -Force | Out-Null
+if (Test-Path $HerdrDst) {
+    $backup = "${HerdrDst}.bak"
+    Write-Host "Backup: $HerdrDst -> $backup"
+    Move-Item -Path $HerdrDst -Destination $backup -Force
+}
+New-Item -ItemType SymbolicLink -Path $HerdrDst -Target $HerdrSrc | Out-Null
+Write-Host "Linked: $HerdrSrc -> $HerdrDst"
 
 Write-Host "Done. Run 'nvim' to install plugins."

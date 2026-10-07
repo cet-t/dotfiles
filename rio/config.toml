@@ -1,0 +1,27 @@
+[fonts]
+size = 14
+
+[cursor]
+shape = "block"
+blinking = false
+
+[section]
+copy-on-select = true
+confirm-before-quit = true
+
+[editor]
+theme = "atom"
+program = "nvim"
+args = []
+
+[platform]
+windows.shell = { program = "nu" }
+
+[window]
+opacity = 0.75
+
+# [renderer]
+# backend = "Webgpu"
+
+[navigation]
+mode = "Tab"

@@ -1,7 +1,7 @@
 # config.nu
 #
 # Installed by:
-# version = "0.111.0"
+# version = "0.115.1"
 #
 # This file is used to override default Nushell settings, define
 # (or import) custom commands, or run any other startup tasks.
@@ -79,6 +79,9 @@ $env.config.completions = {
 
 $env.coding.buffer_editor = 'nvim'
 
+def ls-sort [dir: directory = .] {
+  (ls $dir | sort-by modified)
+}
 
 def cargo-check-deps [] {
     if (not ("Cargo.toml" | path exists)) {
@@ -107,15 +110,33 @@ def cargo-check-deps [] {
         } else { 
             $matched | get 0.capture0 
         }
+        let status = if $current_ver == $latest_ver { 
+          "Up-to-date"
+        } else {
+          "Update Available"
+        }
 
         {
             Crate: $crate_name,
             Current: $current_ver,
             Latest: $latest_ver,
-            Status: (if $current_ver == $latest_ver { "Up-to-date" } else { "Update Available" })
+            Status: $status
         }
     })
 
     $results
+}
+
+# Calculate current directory size
+def dir-size [g: glob = **/*] {
+  let dir = (pwd)
+  let count = (ls ...(glob $g) | select size | length)
+  let size = ((ls ...(glob $g) | get size | math sum))
+
+  {
+    Dir: $dir,
+    Files: $count,
+    TotalSize: $size
+  }
 }
 

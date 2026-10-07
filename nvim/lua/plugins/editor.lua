@@ -19,68 +19,136 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		build = ":TSUpdate",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 		config = function()
-			require("nvim-treesitter").setup({
-				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
-				ensure_installed = {
+			local ensure_installed = {
+				"lua",
+				"rust",
+				"toml",
+				"markdown",
+				"markdown_inline",
+				"bash",
+				"json",
+				"yaml",
+				"c",
+				"cpp",
+				"zig",
+				"c_sharp",
+				"python",
+				"go",
+				"regex",
+				"javascript",
+				"typescript",
+				"tsx",
+				"jsdoc",
+			}
+
+			require("nvim-treesitter").install(ensure_installed)
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = {
 					"lua",
 					"rust",
 					"toml",
 					"markdown",
-					"markdown_inline",
 					"bash",
 					"json",
 					"yaml",
 					"c",
 					"cpp",
 					"zig",
-					"c_sharp",
+					"cs",
 					"python",
 					"go",
-					"regex",
 					"javascript",
+					"javascriptreact",
 					"typescript",
-					"tsx",
-					"jsdoc",
+					"typescriptreact",
 				},
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true,
-						keymaps = {
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = "@class.inner",
-							["aa"] = "@parameter.outer",
-							["ia"] = "@parameter.inner",
-							["al"] = "@loop.outer",
-							["il"] = "@loop.inner",
-							["ab"] = "@block.outer",
-							["ib"] = "@block.inner",
-						},
-					},
-					move = {
-						enable = true,
-						set_jumps = true,
-						goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
-						goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
-						goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
-						goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
-					},
-					swap = {
-						enable = true,
-						swap_next = { ["<leader>sn"] = "@parameter.inner" },
-						swap_previous = { ["<leader>sp"] = "@parameter.inner" },
-					},
-				},
+				callback = function(ev)
+					vim.treesitter.start(ev.buf)
+					vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end,
 			})
+
+			require("nvim-treesitter-textobjects").setup({
+				select = { lookahead = true },
+				move = { set_jumps = true },
+			})
+
+			local select = require("nvim-treesitter-textobjects.select")
+			local move = require("nvim-treesitter-textobjects.move")
+			local swap = require("nvim-treesitter-textobjects.swap")
+			local function map(mode, keys, fn, desc)
+				vim.keymap.set(mode, keys, fn, { desc = desc })
+			end
+
+			map({ "x", "o" }, "af", function()
+				select.select_textobject("@function.outer")
+			end, "Select outer function")
+			map({ "x", "o" }, "if", function()
+				select.select_textobject("@function.inner")
+			end, "Select inner function")
+			map({ "x", "o" }, "ac", function()
+				select.select_textobject("@class.outer")
+			end, "Select outer class")
+			map({ "x", "o" }, "ic", function()
+				select.select_textobject("@class.inner")
+			end, "Select inner class")
+			map({ "x", "o" }, "aa", function()
+				select.select_textobject("@parameter.outer")
+			end, "Select outer parameter")
+			map({ "x", "o" }, "ia", function()
+				select.select_textobject("@parameter.inner")
+			end, "Select inner parameter")
+			map({ "x", "o" }, "al", function()
+				select.select_textobject("@loop.outer")
+			end, "Select outer loop")
+			map({ "x", "o" }, "il", function()
+				select.select_textobject("@loop.inner")
+			end, "Select inner loop")
+			map({ "x", "o" }, "ab", function()
+				select.select_textobject("@block.outer")
+			end, "Select outer block")
+			map({ "x", "o" }, "ib", function()
+				select.select_textobject("@block.inner")
+			end, "Select inner block")
+
+			map({ "n", "x", "o" }, "]f", function()
+				move.goto_next_start({ "@function.outer" })
+			end, "Next function start")
+			map({ "n", "x", "o" }, "]c", function()
+				move.goto_next_start({ "@class.outer" })
+			end, "Next class start")
+			map({ "n", "x", "o" }, "]F", function()
+				move.goto_next_end({ "@function.outer" })
+			end, "Next function end")
+			map({ "n", "x", "o" }, "]C", function()
+				move.goto_next_end({ "@class.outer" })
+			end, "Next class end")
+			map({ "n", "x", "o" }, "[f", function()
+				move.goto_previous_start({ "@function.outer" })
+			end, "Previous function start")
+			map({ "n", "x", "o" }, "[c", function()
+				move.goto_previous_start({ "@class.outer" })
+			end, "Previous class start")
+			map({ "n", "x", "o" }, "[F", function()
+				move.goto_previous_end({ "@function.outer" })
+			end, "Previous function end")
+			map({ "n", "x", "o" }, "[C", function()
+				move.goto_previous_end({ "@class.outer" })
+			end, "Previous class end")
+
+			map("n", "<leader>sn", function()
+				swap.swap_next("@parameter.inner")
+			end, "Swap next parameter")
+			map("n", "<leader>sp", function()
+				swap.swap_previous("@parameter.inner")
+			end, "Swap previous parameter")
 		end,
 	},
 

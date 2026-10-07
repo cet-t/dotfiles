@@ -73,8 +73,27 @@ return {
 
 			-- Python
 			if vim.fn.executable("pyright") == 1 then
+				local function pyright_on_attach(client, bufnr)
+					on_attach(client, bufnr)
+					local root = client.root_dir
+					if not root then
+						return
+					end
+					local venv_python = vim.fs.joinpath(
+						root,
+						".venv",
+						vim.fn.has("win32") == 1 and "Scripts/python.exe" or "bin/python"
+					)
+					if vim.uv.fs_stat(venv_python) then
+						client.settings = vim.tbl_deep_extend("force", client.settings or {}, {
+							python = { pythonPath = venv_python },
+						})
+						client:notify("workspace/didChangeConfiguration", { settings = nil })
+					end
+				end
+
 				vim.lsp.config("pyright", {
-					on_attach = on_attach,
+					on_attach = pyright_on_attach,
 					capabilities = caps,
 					settings = {
 						python = {
@@ -84,7 +103,7 @@ return {
 							},
 						},
 					},
-					root_markers = { "pyproject.toml", "setup.py", "setup.cfg", ".git" },
+					root_markers = { ".venv", "pyproject.toml", "setup.py", "setup.cfg", ".git" },
 				})
 				vim.lsp.enable("pyright")
 			end
