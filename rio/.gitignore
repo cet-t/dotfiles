@@ -1,1 +1,5 @@
-shell-integration-0.5.28/
+/*
+
+!.gitignore
+!themes/
+!config.toml

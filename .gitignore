@@ -1,3 +1,12 @@
-.claude/
-.me/
-token-optimizer/
+*
+
+!.gitignore
+!herdr/
+!nu/
+!nvim/
+!rio/
+!README.md
+!font-view.md
+!install.ps1
+!install.sh
+!keymaps.md

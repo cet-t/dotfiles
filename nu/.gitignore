@@ -1,1 +1,6 @@
-history.*
+/*
+
+!.gitignore
+!config.nu
+!env.nu
+!user/
