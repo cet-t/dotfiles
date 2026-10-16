@@ -1,5 +1,5 @@
 [fonts]
-size = 17
+size = 16
 
 [fonts.regular]
 family = "MonofurZenMaruGothic"
@@ -7,15 +7,15 @@ style = "regular"
 
 [fonts.bold]
 family = "MonofurZenMaruGothic"
-style = "regular"
+style = "bold"
 
 [fonts.italic]
 family = "MonofurZenMaruGothic"
-style = "regular"
+style = "italic"
 
 [fonts.bold-italic]
 family = "MonofurZenMaruGothic"
-style = "regular"
+style = "bold-italic"
 
 [cursor]
 shape = "block"
@@ -34,7 +34,7 @@ args = []
 windows.shell = { program = "nu" }
 
 [window]
-opacity = 0.75
+opacity = 0.9
 
 [renderer]
 backend = "Webgpu"

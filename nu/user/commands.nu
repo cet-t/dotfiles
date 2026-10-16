@@ -1,3 +1,55 @@
+# List Cargo.toml dependencies (dependencies / dev-dependencies / build-dependencies)
+export def cargo-list [] {
+  if (not ("Cargo.toml" | path exists)) {
+    print "Error: Not found Cargo.toml"
+    return
+  }
+
+  let toml = (open Cargo.toml)
+  let kinds = [
+    [key kind];
+    [dependencies normal]
+    [dev-dependencies dev]
+    [build-dependencies build]
+  ]
+
+  $kinds | each { |k|
+    let deps = ($toml | get --optional $k.key | default {})
+    $deps | columns | each { |name|
+      let val = ($deps | get $name)
+      let is_rec = ($val | describe | str starts-with "record")
+
+      let version = (if $is_rec {
+        $val | get --optional version | default (
+        if ($val | get --optional path) != null {
+          "path"
+        } else if ($val | get --optional git) != null {
+          "git"
+        } else if ($val | get --optional workspace) != null {
+          "workspace"
+        } else {
+          "unknown"
+        })
+      } else {
+        $val
+      });
+
+      let features = (if $is_rec {
+        $val | get --optional features | default [] | str join ","
+      } else {
+        ""
+      });
+
+      {
+        name: $name,
+        kind: $k.kind,
+        version: $version,
+        features: $features,
+      }
+    }
+  } | flatten
+}
+
 # Get git diff data
 export def git-diff-data [
   --cached,
@@ -18,13 +70,13 @@ export def git-diff-data [
     return
   }
 
-  let diffs = $lines | rename + - Path | each { |r|
-    let added = ($r | get "+");
-    let removed = ($r | get "-");
+  let diffs = $lines | rename Add Remove Path | each { |r|
+    let added = ($r | get Add);
+    let removed = ($r | get Remove);
 
     {
-      +: $"(ansi green)($added)(ansi reset)",
-      -: $"(ansi red)($removed)(ansi reset)",
+      Add: $"(ansi green)($added)(ansi reset)",
+      Remove: $"(ansi red)($removed)(ansi reset)",
       Path: $r.Path
     }
   };
@@ -89,9 +141,9 @@ export def dir-size [g: glob = **/*] {
   let size = ((ls ...(glob $g) | get size | math sum))
 
   {
-    Dir: $dir,
-    Files: $count,
-    TotalSize: $size
+    dir: $dir,
+    files: $count,
+    total-size: $size
   }
 }
 
