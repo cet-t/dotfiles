@@ -2,7 +2,7 @@ return {
 	-- Rust dev (handles rust-analyzer automatically)
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^5",
+		version = "^9",
 		lazy = false,
 		ft = "rust",
 		config = function()
@@ -11,6 +11,8 @@ return {
 					hover_actions = { auto_focus = true },
 				},
 				server = {
+					-- v6 以降は cmp_nvim_lsp の capabilities を自動登録しないので明示
+					capabilities = require("cmp_nvim_lsp").default_capabilities(),
 					on_attach = function(_, bufnr)
 						local map = function(keys, func, desc)
 							vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
@@ -34,7 +36,8 @@ return {
 					end,
 					settings = {
 						["rust-analyzer"] = {
-							checkOnSave = { command = "clippy" },
+							checkOnSave = true,
+							check = { command = "clippy" },
 							inlayHints = {
 								bindingModeHints = { enable = true },
 								chainingHints = { enable = true },
