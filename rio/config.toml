@@ -38,6 +38,7 @@ opacity = 0.9
 
 [renderer]
 backend = "Webgpu"
+strategy = "Game"
 
 [navigation]
 mode = "Tab"
