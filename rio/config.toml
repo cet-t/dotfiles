@@ -1,0 +1,10 @@
+# See the full configuration reference: https://rioterm.com/docs/config
+
+[fonts]
+size = 16
+
+[navigation]
+mode = "Tab"
+
+[platform]
+linux.shell = { program = "nu" }
