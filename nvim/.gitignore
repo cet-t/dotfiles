@@ -4,3 +4,4 @@
 !lua/
 !lua/**
 !init.lua
+!lazy-lock.json
