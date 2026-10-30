@@ -216,7 +216,7 @@ nvim
 | キー         | 動作                                 |
 | ------------ | ------------------------------------ |
 | `<C-\>`      | ターミナルモードからノーマルモードへ |
-| `<leader>j`  | Nushell 水平分割 toggle              |
+| `<C-j>`      | Nushell 水平分割 toggle              |
 | `<leader>kt` | Kilocode 縦分割 toggle               |
 | `<leader>ot` | OpenCode 縦分割 toggle               |
 | `<M-q>`      | Claude Code toggle（フロート）       |
