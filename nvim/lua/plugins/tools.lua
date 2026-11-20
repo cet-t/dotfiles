@@ -49,9 +49,7 @@ return {
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		keys = {
-			{ "<leader>j", desc = "Toggle Nushell" },
-			{ "<leader>kt", desc = "Toggle Kilocode" },
-			{ "<leader>ot", desc = "Toggle OpenCode" },
+			{ "<C-j>", desc = "Toggle Nushell" },
 		},
 		config = function()
 			require("toggleterm").setup({
@@ -71,31 +69,9 @@ return {
 				hidden = true,
 				size = math.floor(vim.o.lines * 0.35),
 			})
-			vim.keymap.set({ "n", "t" }, "<leader>j", function()
+			vim.keymap.set({ "n", "t" }, "<C-j>", function()
 				nu_term:toggle(math.floor(vim.o.lines * 0.35))
 			end, { desc = "Toggle float Nushell" })
-
-			-- Kilocode
-			local kilocode_term = Terminal:new({
-				cmd = "kilocode",
-				direction = "vertical",
-				size = math.floor(vim.o.columns * 0.35),
-				hidden = true,
-			})
-			vim.keymap.set({ "n", "t" }, "<leader>kt", function()
-				kilocode_term:toggle(math.floor(vim.o.columns * 0.35))
-			end, { desc = "Toggle Kilocode" })
-
-			-- OpenCode
-			local opencode_term = Terminal:new({
-				cmd = "opencode",
-				direction = "vertical",
-				size = math.floor(vim.o.columns * 0.35),
-				hidden = true,
-			})
-			vim.keymap.set({ "n", "t" }, "<leader>ot", function()
-				opencode_term:toggle(math.floor(vim.o.columns * 0.35))
-			end, { desc = "Toggle OpenCode" })
 		end,
 	},
 
