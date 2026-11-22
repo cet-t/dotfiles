@@ -1,0 +1,7 @@
+*
+
+!.gitignore
+!user/
+!user/*.nu
+!config.nu
+!env.nu

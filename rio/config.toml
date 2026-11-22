@@ -1,10 +1,37 @@
-# See the full configuration reference: https://rioterm.com/docs/config
-
 [fonts]
 size = 16
 
-[navigation]
-mode = "Tab"
+[fonts.regular]
+family = "MonofurZenMaruGothic"
+style = "regular"
+
+[fonts.bold]
+family = "MonofurZenMaruGothic"
+style = "bold"
+
+[fonts.italic]
+family = "MonofurZenMaruGothic"
+style = "italic"
+
+[fonts.bold-italic]
+family = "MonofurZenMaruGothic"
+style = "bold-italic"
+
+[cursor]
+shape = "block"
+blinking = false
+
+[section]
+copy-on-select = true
+confirm-before-quit = true
+
+[editor]
+theme = "atom"
+program = "nvim"
+args = []
 
 [platform]
 linux.shell = { program = "nu" }
+
+[navigation]
+mode = "Tab"

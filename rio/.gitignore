@@ -2,3 +2,5 @@
 
 !.gitignore
 !config.toml
+!themes/
+!themes/*.toml
