@@ -1,5 +1,7 @@
 *
 
 !.gitignore
-!*/
+!nu/
+!rio/
+!nvim/
 !AGENTS.md
